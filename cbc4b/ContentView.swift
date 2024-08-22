@@ -8,17 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection: Tab = .dashboard
+    
+    enum Tab {
+        case dashboard
+        case meal
+        case exercise
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView(selection: $selection) {
+            DashboardHome(profile: Profile.default)
+                .tabItem {
+                    Label("Dashboard", systemImage: "brain.head.profile")
+                }
+                .tag(Tab.dashboard)
+            
+            MealList()
+                .tabItem {
+                    Label("Meal", systemImage: "carrot")
+                }
+                .tag(Tab.meal)
+            
+            ExerciseList()
+                .tabItem {
+                    Label("Exercise", systemImage: "figure.run.circle")
+                }
+                .tag(Tab.exercise)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(ModelData())
 }
