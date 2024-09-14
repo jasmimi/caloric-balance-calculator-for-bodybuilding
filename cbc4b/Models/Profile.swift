@@ -31,6 +31,18 @@ struct Profile {
         , fitnessActivityLevel: FitnessActivityLevel.va.rawValue
         , goal: Goal.m.rawValue)
     
+    static let blank = Profile(
+        username: ""
+        , firstName: ""
+        , lastName: ""
+        , prefersNotifications: true
+        , age: 0
+        , height: ""
+        , weight: 0
+        , sex: ""
+        , fitnessActivityLevel: ""
+        , goal: "")
+    
     enum Height: String, CaseIterable, Identifiable {
         case foon = "4'1\""
         case fotw = "4'2\""

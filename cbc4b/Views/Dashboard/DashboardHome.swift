@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct DashboardHome: View {
     @Environment(ModelData.self) var modelData
     @State private var showingProfile = false
