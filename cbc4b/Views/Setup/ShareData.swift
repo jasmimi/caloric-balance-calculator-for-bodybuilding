@@ -12,16 +12,18 @@ struct ShareData: View {
     @State private var myFitnessPalToggle = false
 
     var body: some View {
-        Text("Share your data")
-        Toggle(isOn: $appleHealthToggle) {
-            Text("Apple Health data")
-        }
-        Toggle(isOn: $myFitnessPalToggle) {
-            Text("MyFitnessPal data")
-        }
-        Button("Continue"){
-            
-        }
+        VStack {
+            Text("Share your data")
+            Toggle(isOn: $appleHealthToggle) {
+                Text("Apple Health data")
+            }
+            Toggle(isOn: $myFitnessPalToggle) {
+                Text("MyFitnessPal data")
+            }
+            Button("Continue"){
+                
+            }
+        }.padding()
     }
 }
 
