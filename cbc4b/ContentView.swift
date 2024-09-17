@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection: Tab = .dashboard
+    var signedIn = false
     
     enum Tab {
         case dashboard
@@ -17,25 +18,30 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView(selection: $selection) {
-            DashboardHome(profile: Profile.default)
-                .tabItem {
-                    Label("Dashboard", systemImage: "brain.head.profile")
-                }
-                .tag(Tab.dashboard)
-            
-            MealList()
-                .tabItem {
-                    Label("Meal", systemImage: "carrot")
-                }
-                .tag(Tab.meal)
-            
-            ExerciseList()
-                .tabItem {
-                    Label("Exercise", systemImage: "figure.run.circle")
-                }
-                .tag(Tab.exercise)
+        if signedIn {
+            TabView(selection: $selection) {
+                DashboardHome(profile: Profile.default)
+                    .tabItem {
+                        Label("Dashboard", systemImage: "brain.head.profile")
+                    }
+                    .tag(Tab.dashboard)
+                
+                MealList()
+                    .tabItem {
+                        Label("Meal", systemImage: "carrot")
+                    }
+                    .tag(Tab.meal)
+                
+                ExerciseList()
+                    .tabItem {
+                        Label("Exercise", systemImage: "figure.run.circle")
+                    }
+                    .tag(Tab.exercise)
+            }
+        } else {
+            Start()
         }
+        
     }
 }
 

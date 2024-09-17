@@ -9,12 +9,17 @@ import SwiftUI
 
 struct SignUp: View {
     @State private var blankProfile = Profile.blank
+    var formFilled = true
 
     var body: some View {
-        Text("Tell us about you")
-        ProfileEditor(profile: $blankProfile)
-        Button("Continue"){
-            
+        NavigationStack {
+            Text("Tell us about you")
+            ProfileEditor(profile: $blankProfile)
+            NavigationLink("Continue"){
+                if formFilled {
+                    ShareData()
+                }
+            }
         }
     }
 }

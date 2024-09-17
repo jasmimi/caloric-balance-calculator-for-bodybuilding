@@ -10,20 +10,24 @@ import SwiftUI
 struct ShareData: View {
     @State private var appleHealthToggle = false
     @State private var myFitnessPalToggle = false
+    var formFilled = true
 
     var body: some View {
-        VStack {
-            Text("Share your data")
-            Toggle(isOn: $appleHealthToggle) {
-                Text("Apple Health data")
-            }
-            Toggle(isOn: $myFitnessPalToggle) {
-                Text("MyFitnessPal data")
-            }
-            Button("Continue"){
-                
-            }
-        }.padding()
+        NavigationStack {
+            VStack {
+                Text("Share your data")
+                Toggle(isOn: $appleHealthToggle) {
+                    Text("Apple Health data")
+                }
+                Toggle(isOn: $myFitnessPalToggle) {
+                    Text("MyFitnessPal data")
+                }
+                NavigationLink("Continue"){
+                    // need signin true authentication check
+                    ContentView()
+                }
+            }.padding()
+        }
     }
 }
 
