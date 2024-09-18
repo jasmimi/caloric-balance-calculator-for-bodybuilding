@@ -8,7 +8,8 @@
 import Foundation
 
 struct Profile {
-    var username: String
+    var email: String
+    var password: String
     var firstName: String
     var lastName: String
     var prefersNotifications =  true
@@ -20,7 +21,8 @@ struct Profile {
     var goal: String
     
     static let `default` = Profile(
-        username: "jasmimi"
+        email: "jvq3854@autuni.ac.nz"
+        , password: "meow"
         , firstName: "Jasmine"
         , lastName: "Amohia"
         , prefersNotifications: true
@@ -30,6 +32,19 @@ struct Profile {
         , sex: Sex.f.rawValue
         , fitnessActivityLevel: FitnessActivityLevel.va.rawValue
         , goal: Goal.m.rawValue)
+    
+    static let blank = Profile(
+        email: ""
+        , password: ""
+        , firstName: ""
+        , lastName: ""
+        , prefersNotifications: true
+        , age: 0
+        , height: ""
+        , weight: 0
+        , sex: ""
+        , fitnessActivityLevel: ""
+        , goal: "")
     
     enum Height: String, CaseIterable, Identifiable {
         case foon = "4'1\""
