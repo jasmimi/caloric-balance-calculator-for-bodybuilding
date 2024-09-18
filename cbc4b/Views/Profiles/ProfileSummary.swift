@@ -14,7 +14,7 @@ struct ProfileSummary: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                Text(profile.username)
+                Text("Profile")
                     .bold()
                     .font(.title)
 

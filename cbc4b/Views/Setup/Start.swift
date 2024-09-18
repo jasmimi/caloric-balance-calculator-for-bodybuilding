@@ -29,6 +29,7 @@ struct Start: View {
                         }.buttonStyle(.borderedProminent)
                             .padding().padding()
                         Spacer()
+                        //Image() add dumbbell
                     }
                 }
             }

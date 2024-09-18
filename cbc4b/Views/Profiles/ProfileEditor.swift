@@ -9,15 +9,31 @@ import SwiftUI
 
 struct ProfileEditor: View {
     @Binding var profile: Profile
+    var signup = false
     
     var body: some View {
         List {
             HStack {
-                Text("Username")
+                Text("Email")
                 Spacer()
-                TextField("Username", text: $profile.username)
+                TextField("Email", text: $profile.email)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.trailing)
+                    .disabled(true)
+            }
+            
+            HStack {
+                Text("Password")
+                Spacer()
+                if signup {
+                    TextField("Password", text: $profile.password)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                } else {
+                    SecureField("Password", text: $profile.password)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
             }
             
             HStack {
@@ -93,5 +109,5 @@ struct ProfileEditor: View {
 
 
 #Preview {
-    ProfileEditor(profile: .constant(.default))
+    ProfileEditor(profile: .constant(.default), signup: false)
 }

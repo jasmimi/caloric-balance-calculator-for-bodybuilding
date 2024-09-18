@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SignUp: View {
     @State private var blankProfile = Profile.blank
@@ -14,12 +15,13 @@ struct SignUp: View {
     var body: some View {
         NavigationStack {
             Text("Tell us about you")
-            ProfileEditor(profile: $blankProfile)
+            ProfileEditor(profile: $blankProfile, signup: true)
             NavigationLink("Continue"){
-                if formFilled {
+//                    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+//                      // ...
+//                    }
                     ShareData()
-                }
-            }
+            }.disabled(!formFilled)
         }
     }
 }

@@ -6,42 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
-    @State private var selection: Tab = .dashboard
-    var signedIn = false
-    
-    enum Tab {
-        case dashboard
-        case meal
-        case exercise
-    }
+    @State private var signedIn = false
     
     var body: some View {
-        if signedIn {
-            TabView(selection: $selection) {
-                DashboardHome(profile: Profile.default)
-                    .tabItem {
-                        Label("Dashboard", systemImage: "brain.head.profile")
-                    }
-                    .tag(Tab.dashboard)
-                
-                MealList()
-                    .tabItem {
-                        Label("Meal", systemImage: "carrot")
-                    }
-                    .tag(Tab.meal)
-                
-                ExerciseList()
-                    .tabItem {
-                        Label("Exercise", systemImage: "figure.run.circle")
-                    }
-                    .tag(Tab.exercise)
+        VStack {
+            if signedIn {
+                AuthNavTabs()
+            } else {
+                Start()
             }
-        } else {
-            Start()
         }
-        
+        .onAppear {
+            // Check if the user is already signed in
+            signedIn = Auth.auth().currentUser != nil
+        }
     }
 }
 
