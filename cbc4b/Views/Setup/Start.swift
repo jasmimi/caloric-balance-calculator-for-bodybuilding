@@ -17,19 +17,23 @@ struct Start: View {
                         .frame(height: UIScreen.main.bounds.height/2)
                     VStack {
                         Spacer()
-                        Text("Caloric Balance Calculator for Bodybuilding").font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/).padding().padding()
+                        Text("Caloric Balance Calculator for Bodybuilding").font(.largeTitle).fontWeight(/*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/).padding().padding()
                     }
-                    
                 }
                 ZStack {
                     Color.white.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/).frame(height: UIScreen.main.bounds.height/2)
                     VStack {
                         NavigationLink ("Start Journey"){
                             SignUp()
-                        }.buttonStyle(.borderedProminent)
-                            .padding().padding()
+                        }.buttonStyle(.bordered)
+                            .padding()
+                        Image("StartIcon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 100)
+                            .padding()
                         Spacer()
-                        //Image() add dumbbell
+                            .frame(height: 180)
                     }
                 }
             }

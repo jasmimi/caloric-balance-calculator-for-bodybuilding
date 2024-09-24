@@ -17,7 +17,7 @@ struct DashboardHome: View {
             List {
             }
             .listStyle(.inset)
-            .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal))")
+            .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal.rawValue))")
             .toolbar {
                 Button {
                     showingProfile.toggle()
@@ -33,7 +33,7 @@ struct DashboardHome: View {
     }
     
     func genTitle(goal: String) -> String {
-        var x = profile.goal
+        var x = profile.goal.rawValue
         if (x == "Maintain"){
             x = "maintenance"
         }

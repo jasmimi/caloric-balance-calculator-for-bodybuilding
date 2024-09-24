@@ -19,14 +19,14 @@ struct ProfileEditor: View {
                 TextField("Email", text: $profile.email)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.trailing)
-                    .disabled(true)
+                    .disabled(!signup)
             }
             
             HStack {
                 Text("Password")
                 Spacer()
                 if signup {
-                    TextField("Password", text: $profile.password)
+                    TextField("Password", text: $profile.password, prompt: Text("8 chars, 1 cap, 1 num"))
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.trailing)
                 } else {
@@ -73,7 +73,7 @@ struct ProfileEditor: View {
             HStack {
                 Text("Weight")
                 Spacer()
-                TextField("weight", value: $profile.weight, formatter: MassFormatter())
+                TextField("weight", value: $profile.weight, formatter: NumberFormatter())
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.trailing)
             }

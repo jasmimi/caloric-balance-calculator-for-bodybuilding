@@ -14,11 +14,11 @@ struct Profile {
     var lastName: String
     var prefersNotifications =  true
     var age: Double
-    var height: String
+    var height: Height
     var weight: Double
-    var sex: String
-    var fitnessActivityLevel: String
-    var goal: String
+    var sex: Sex
+    var fitnessActivityLevel: FitnessActivityLevel
+    var goal: Goal
     
     static let `default` = Profile(
         email: "jvq3854@autuni.ac.nz"
@@ -27,11 +27,11 @@ struct Profile {
         , lastName: "Amohia"
         , prefersNotifications: true
         , age: 21
-        , height: Height.fi.rawValue
+        , height: Height.fi
         , weight: 60.1
-        , sex: Sex.f.rawValue
-        , fitnessActivityLevel: FitnessActivityLevel.va.rawValue
-        , goal: Goal.m.rawValue)
+        , sex: Sex.f
+        , fitnessActivityLevel: FitnessActivityLevel.va
+        , goal: Goal.m)
     
     static let blank = Profile(
         email: ""
@@ -40,13 +40,14 @@ struct Profile {
         , lastName: ""
         , prefersNotifications: true
         , age: 0
-        , height: ""
+        , height: .unspecified
         , weight: 0
-        , sex: ""
-        , fitnessActivityLevel: ""
-        , goal: "")
+        , sex: .unspecified
+        , fitnessActivityLevel: .unspecified
+        , goal: .unspecified)
     
     enum Height: String, CaseIterable, Identifiable {
+        case unspecified = ""
         case foon = "4'1\""
         case fotw = "4'2\""
         case foth = "4'3\""
@@ -90,6 +91,7 @@ struct Profile {
     }
     
     enum Sex: String, CaseIterable, Identifiable {
+        case unspecified = ""
         case f = "Female"
         case m = "Male"
         case o = "Other"
@@ -98,6 +100,7 @@ struct Profile {
     }
     
     enum FitnessActivityLevel: String, CaseIterable, Identifiable {
+        case unspecified = ""
         case s = "Sedentary: little or no exercise"
         case l = "Light: exercise 1-3 times/week"
         case m = "Moderate: exercise 4-5 times/week"
@@ -109,6 +112,7 @@ struct Profile {
     }
     
     enum Goal: String, CaseIterable, Identifiable {
+        case unspecified = ""
         case mc = "Major cut"
         case c = "Cut"
         case m = "Maintain"
