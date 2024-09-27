@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileHost: View {
     @Environment(\.editMode) var editMode
-    @Environment(ModelData.self) var modelData
+    @EnvironmentObject var modelData: ModelData
     @State private var draftProfile = Profile.default
 
     var body: some View {
@@ -43,6 +43,6 @@ struct ProfileHost: View {
 
 #Preview {
     ProfileHost()
-        .environment(ModelData())
+        .environmentObject(ModelData())
 }
 

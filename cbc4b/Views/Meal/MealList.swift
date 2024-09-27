@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MealList: View {
-    @Environment(ModelData.self) var modelData
+    @EnvironmentObject var modelData: ModelData 
     @State private var showingProfile = false
     
     var body: some View {
@@ -26,12 +26,12 @@ struct MealList: View {
             }
             .sheet(isPresented: $showingProfile) {
                 ProfileHost()
-                    .environment(modelData)
+                    .environmentObject(modelData)
             }
         }
     }
 }
 
 #Preview {
-    MealList()
+    MealList().environmentObject(ModelData())
 }

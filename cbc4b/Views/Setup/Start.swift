@@ -23,10 +23,15 @@ struct Start: View {
                 ZStack {
                     Color.white.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/).frame(height: UIScreen.main.bounds.height/2)
                     VStack {
-                        NavigationLink ("Start Journey"){
-                            SignUp()
-                        }.buttonStyle(.bordered)
-                            .padding()
+                        HStack {
+                            NavigationLink ("Log in"){
+                                LogIn()
+                            }.buttonStyle(.bordered)
+                            NavigationLink ("Sign up"){
+                                SignUp()
+                            }.buttonStyle(.bordered)
+                        }
+                        
                         Image("StartIcon")
                             .resizable()
                             .scaledToFit()

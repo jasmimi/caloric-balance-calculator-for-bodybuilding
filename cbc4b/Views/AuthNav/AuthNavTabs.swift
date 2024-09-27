@@ -40,5 +40,5 @@ struct AuthNavTabs: View {
 
 #Preview {
     AuthNavTabs()
-        .environment(ModelData())
+        .environmentObject(ModelData())
 }

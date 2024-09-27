@@ -13,26 +13,24 @@ struct ProfileEditor: View {
     
     var body: some View {
         List {
-            HStack {
-                Text("Email")
-                Spacer()
-                TextField("Email", text: $profile.email)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-                    .disabled(!signup)
+            if signup {
+                HStack {
+                    Text("Email")
+                    Spacer()
+                    TextField("Email", text: $profile.email)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                        .disabled(!signup)
+                }
             }
             
-            HStack {
-                Text("Password")
-                Spacer()
-                if signup {
-                    TextField("Password", text: $profile.password, prompt: Text("8 chars, 1 cap, 1 num"))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                } else {
-                    SecureField("Password", text: $profile.password)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+            if signup {
+                HStack {
+                    Text("Password")
+                    Spacer()
+                        TextField("Password", text: $profile.password, prompt: Text("8 chars, 1 cap, 1 num"))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
                 }
             }
             

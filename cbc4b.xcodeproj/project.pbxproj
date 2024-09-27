@@ -27,6 +27,7 @@
 		09CB991B2C97DA8100973E5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09CB99192C97DA8000973E5E /* GoogleService-Info.plist */; };
 		09CB991C2C97DA8100973E5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09CB99192C97DA8000973E5E /* GoogleService-Info.plist */; };
 		09CB991F2C97DC7300973E5E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 09CB991E2C97DC7300973E5E /* FirebaseAnalytics */; };
+		09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0DAC52CA5709700720D51 /* LogIn.swift */; };
 		09E2FA632C76BD5200E0B832 /* ExerciseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA622C76BD5200E0B832 /* ExerciseList.swift */; };
 		09E2FA652C76BD6B00E0B832 /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA642C76BD6B00E0B832 /* MealList.swift */; };
 		09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA662C76BDA400E0B832 /* DashboardHome.swift */; };
@@ -70,6 +71,7 @@
 		09A59F7D2C9523F100E21539 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		09CB99192C97DA8000973E5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09CB99202C97E39A00973E5E /* cbc4b.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cbc4b.entitlements; sourceTree = "<group>"; };
+		09E0DAC52CA5709700720D51 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		09E2FA622C76BD5200E0B832 /* ExerciseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseList.swift; sourceTree = "<group>"; };
 		09E2FA642C76BD6B00E0B832 /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
 		09E2FA662C76BDA400E0B832 /* DashboardHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHome.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		09E2FA5E2C76BBDF00E0B832 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				09E0DAC52CA5709700720D51 /* LogIn.swift */,
 				09A59F792C951F1500E21539 /* Start.swift */,
 				09A59F7B2C9520E900E21539 /* SignUp.swift */,
 				09A59F7D2C9523F100E21539 /* ShareData.swift */,
@@ -407,6 +410,7 @@
 				09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */,
 				09A59F7E2C9523F100E21539 /* ShareData.swift in Sources */,
 				09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */,
+				09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */,
 				09E2FA6D2C76C17600E0B832 /* ProfileSummary.swift in Sources */,
 				09E2FA712C76C84800E0B832 /* ModelData.swift in Sources */,
 				09E2FA6F2C76C28F00E0B832 /* Profile.swift in Sources */,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardHome: View {
-    @Environment(ModelData.self) var modelData
+    @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     var profile: Profile
     
@@ -27,7 +27,7 @@ struct DashboardHome: View {
             }
             .sheet(isPresented: $showingProfile) {
                 ProfileHost()
-                    .environment(modelData)
+                    .environmentObject(modelData)
             }
         } 
     }
@@ -43,5 +43,5 @@ struct DashboardHome: View {
 
 #Preview {
     DashboardHome(profile: Profile.default)
-        .environment(ModelData())
+        .environmentObject(ModelData())
 }

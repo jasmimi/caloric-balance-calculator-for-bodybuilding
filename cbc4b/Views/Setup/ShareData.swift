@@ -11,7 +11,7 @@ struct ShareData: View {
     @State private var appleHealthToggle = false
     @State private var myFitnessPalToggle = false
     @State private var showAlert = false
-    var atitle = "Incomplete"
+    var atitle: String
 
     var body: some View {
         NavigationStack {
@@ -36,11 +36,13 @@ struct ShareData: View {
                     Text("Please enable both toggles to continue")
                         .foregroundColor(.red)
                 }
-            }.padding()
+            }
+            .padding()
         }
     }
 }
 
+
 #Preview {
-    ShareData()
+    ShareData(atitle: "Tc2nvjU9gDgbCyF5eNBhGMDnFG72")
 }
