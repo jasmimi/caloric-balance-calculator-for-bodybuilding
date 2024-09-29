@@ -15,8 +15,13 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if authManager.isUserLoggedIn {
-                AuthNavTabs()
-                    .environmentObject(authManager)
+                if authManager.hasCompletedShareData {
+                    AuthNavTabs()
+                        .environmentObject(authManager)
+                } else {
+                    ShareData(atitle: authManager.currentUserUID ?? "")
+                        .environmentObject(authManager)
+                }
             } else {
                 Start()
                     .environmentObject(authManager)
@@ -24,6 +29,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()

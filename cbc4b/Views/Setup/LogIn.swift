@@ -26,7 +26,7 @@ struct LogIn: View {
                             .font(.largeTitle)
                             .fontWeight(.black)
                             .foregroundColor(.white)
-                            .padding().padding()
+                            
 
                         ZStack {
                             Color.white
@@ -34,24 +34,32 @@ struct LogIn: View {
                                 .frame(width: 350, height: UIScreen.main.bounds.height/4)
                             
                             VStack {
-                                HStack {
-                                    Text("Email")
-                                    Spacer()
-                                    TextField("Email", text: $email)
-                                        .autocapitalization(.none)
-                                }.padding()
-                                
-                                HStack {
-                                    Text("Password")
-                                    Spacer()
-                                    SecureField("Password", text: $password)
-                                        .autocapitalization(.none)
-                                }.padding()
-                                
+                                VStack {
+                                    HStack {
+                                        Text("Email")
+                                        Spacer()
+                                        TextField("Email", text: $email)
+                                            .autocapitalization(.none)
+                                    }.padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.indigo, lineWidth: 2)
+                                        )
+                                    HStack {
+                                        Text("Password")
+                                        Spacer()
+                                        SecureField("Password", text: $password)
+                                            .autocapitalization(.none)
+                                    }.padding()
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(.indigo, lineWidth: 2)
+                                        )
+                                }
+                                .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
                                 HStack {
                                     NavigationLink("Go back", destination: Start())
                                         .buttonStyle(.borderedProminent)
-                                        .padding()
 
                                     Button(action: {
                                         isSigningIn = true
@@ -66,13 +74,14 @@ struct LogIn: View {
                                         }
                                     }
                                     .buttonStyle(.borderedProminent)
-                                    .padding()
                                     .disabled(isSigningIn)
                                 }
-                            }.padding().padding()
+                                .padding(.top)
+                            }
+                            .padding().padding()
                         }
                         
-                        Spacer().frame(height: 60)
+                        Spacer().frame(height: 50.0)
                         
                         NavigationLink("", destination: AuthNavTabs(), isActive: $isSignedIn)
                             .hidden()

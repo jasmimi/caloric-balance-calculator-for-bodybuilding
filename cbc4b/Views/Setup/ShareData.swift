@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ShareData: View {
+    @EnvironmentObject var authManager: AuthManager
     @State private var appleHealthToggle = false
     @State private var myFitnessPalToggle = false
     @State private var showAlert = false
@@ -27,8 +28,13 @@ struct ShareData: View {
                 }
                 
                 NavigationLink("Continue") {
-                    ContentView()
-                }
+                     ContentView()
+                         .onAppear {
+                             if appleHealthToggle && myFitnessPalToggle {
+                                 authManager.markShareDataComplete()
+                             }
+                         }
+                 }
                 .disabled(!(appleHealthToggle && myFitnessPalToggle))
                 .padding()
                 

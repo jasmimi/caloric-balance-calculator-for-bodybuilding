@@ -4,19 +4,17 @@
 //
 //  Created by Jasmine Amohia on 14/09/2024.
 //
-
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
 struct SignUp: View {
     @State private var blankProfile = Profile.blank
-    @State private var email: String = ""
-    @State private var password: String = ""
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var isSignedUp: Bool = false // Tracks successful sign-up to navigate
     @State private var uid: String? = nil // Store the UID
+    @EnvironmentObject var authManager: AuthManager // Add this line
 
     private var isFormFilled: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -43,7 +41,6 @@ struct SignUp: View {
     var body: some View {
         NavigationStack {
             VStack {
-                //Text("Tell us about you")
                 ProfileEditor(profile: $blankProfile, signup: true)
                 
                 if showError {
@@ -52,54 +49,36 @@ struct SignUp: View {
                         .padding(.bottom)
                 }
 
-                // Sign-up button
                 Button(action: {
-                    signUpUserSignIn()
+                    signUpUser()
                 }) {
                     Text("Continue")
                 }
-                .disabled(!isFormFilled) // Disable if form is not filled
+                .disabled(!isFormFilled)
             }
+            .navigationTitle("Tell us about you")
             .navigationDestination(isPresented: $isSignedUp) {
                 if let uid = uid {
-                    ShareData(atitle: uid) 
+                    ShareData(atitle: uid)
                 } else {
                     Text("Error: UID not found")
                 }
             }
-
-        }.navigationTitle("Tell us about you")
+        }
     }
 
-    private func signUpUserSignIn() {
-        Auth.auth().createUser(withEmail: blankProfile.email, password: blankProfile.password) { authResult, error in
+    private func signUpUser() {
+        authManager.createAccount(withEmail: blankProfile.email, password: blankProfile.password) { error in
             if let error = error {
-                // Handle Firebase Auth error, show message
                 self.errorMessage = error.localizedDescription
                 self.showError = true
                 return
             }
 
-            // Successful sign-up, proceed to sign in
-            guard let uid = authResult?.user.uid else {
-                print("Unable to retrieve user ID")
-                self.errorMessage = "Unable to retrieve user ID"
-                self.showError = true
-                return
-            }
-
-            self.uid = uid
-            self.showError = false
-            
-            // Sign in the user automatically
-            Auth.auth().signIn(withEmail: blankProfile.email, password: blankProfile.password) { authResult, error in
-                if let error = error {
-                    // Handle sign-in error
-                    print("Sign-in failed: \(error.localizedDescription)")
-                    self.errorMessage = "Sign-in failed: \(error.localizedDescription)"
-                    self.showError = true
-                    return
-                }
+            // Successful sign-up, proceed to sign in and retrieve the user ID
+            if let user = Auth.auth().currentUser {
+                self.uid = user.uid
+                self.showError = false
                 
                 // Save additional user data to Firestore
                 let db = Firestore.firestore()
@@ -107,26 +86,30 @@ struct SignUp: View {
                     "firstName": self.blankProfile.firstName,
                     "lastName": self.blankProfile.lastName,
                     "age": self.blankProfile.age,
-                    "height": self.blankProfile.height,
+                    "height": self.blankProfile.height.rawValue,
                     "weight": self.blankProfile.weight,
-                    "sex": self.blankProfile.sex,
-                    "fitnessActivityLevel": self.blankProfile.fitnessActivityLevel,
-                    "goal": self.blankProfile.goal,
+                    "sex": self.blankProfile.sex.rawValue,
+                    "fitnessActivityLevel": self.blankProfile.fitnessActivityLevel.rawValue,
+                    "goal": self.blankProfile.goal.rawValue,
                     "notifications": self.blankProfile.prefersNotifications
                 ]) { err in
                     if let err = err {
-                        print("Error saving user data: \(err.localizedDescription)")
                         self.errorMessage = "Error saving user data: \(err.localizedDescription)"
                         self.showError = true
                     } else {
                         // Data successfully saved, navigate to the next screen
                         self.isSignedUp = true
+                        self.authManager.shouldNavigateToShareData = true // Set the state here
                     }
                 }
+            } else {
+                self.errorMessage = "Unable to retrieve user ID"
+                self.showError = true
             }
         }
     }
 }
+
 
 #Preview {
     SignUp()
