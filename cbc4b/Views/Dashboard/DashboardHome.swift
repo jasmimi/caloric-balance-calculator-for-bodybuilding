@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardHome: View {
-    @Environment(ModelData.self) var modelData
+    @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     var profile: Profile
     
@@ -17,7 +17,7 @@ struct DashboardHome: View {
             List {
             }
             .listStyle(.inset)
-            .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal))")
+            .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal.rawValue))")
             .toolbar {
                 Button {
                     showingProfile.toggle()
@@ -27,13 +27,13 @@ struct DashboardHome: View {
             }
             .sheet(isPresented: $showingProfile) {
                 ProfileHost()
-                    .environment(modelData)
+                    .environmentObject(modelData)
             }
         } 
     }
     
     func genTitle(goal: String) -> String {
-        var x = profile.goal
+        var x = profile.goal.rawValue
         if (x == "Maintain"){
             x = "maintenance"
         }
@@ -43,5 +43,5 @@ struct DashboardHome: View {
 
 #Preview {
     DashboardHome(profile: Profile.default)
-        .environment(ModelData())
+        .environmentObject(ModelData())
 }

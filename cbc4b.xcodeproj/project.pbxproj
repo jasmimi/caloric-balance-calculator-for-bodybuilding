@@ -13,6 +13,7 @@
 		0928C9792C9A8DF3002B545A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 0928C9782C9A8DF3002B545A /* FirebaseAppDistribution-Beta */; };
 		0928C97B2C9A8EB0002B545A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0928C97A2C9A8EB0002B545A /* FirebaseAuth */; };
 		0928C97D2C9A8EB0002B545A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0928C97C2C9A8EB0002B545A /* FirebaseFirestore */; };
+		09665E1B2CA6875C0030BC70 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09665E1A2CA687570030BC70 /* AuthManager.swift */; };
 		09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128B62C7491BA009D6A1F /* cbc4bApp.swift */; };
 		09A128B92C7491BA009D6A1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128B82C7491BA009D6A1F /* ContentView.swift */; };
 		09A128BB2C7491BB009D6A1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A128BA2C7491BB009D6A1F /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		09CB991B2C97DA8100973E5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09CB99192C97DA8000973E5E /* GoogleService-Info.plist */; };
 		09CB991C2C97DA8100973E5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09CB99192C97DA8000973E5E /* GoogleService-Info.plist */; };
 		09CB991F2C97DC7300973E5E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 09CB991E2C97DC7300973E5E /* FirebaseAnalytics */; };
+		09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0DAC52CA5709700720D51 /* LogIn.swift */; };
 		09E2FA632C76BD5200E0B832 /* ExerciseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA622C76BD5200E0B832 /* ExerciseList.swift */; };
 		09E2FA652C76BD6B00E0B832 /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA642C76BD6B00E0B832 /* MealList.swift */; };
 		09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA662C76BDA400E0B832 /* DashboardHome.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092D471F2CA939D700D3DF43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		09665E1A2CA687570030BC70 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		09A128B32C7491BA009D6A1F /* cbc4b.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cbc4b.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A128B62C7491BA009D6A1F /* cbc4bApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cbc4bApp.swift; sourceTree = "<group>"; };
 		09A128B82C7491BA009D6A1F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 		09A59F7D2C9523F100E21539 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		09CB99192C97DA8000973E5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09CB99202C97E39A00973E5E /* cbc4b.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cbc4b.entitlements; sourceTree = "<group>"; };
+		09E0DAC52CA5709700720D51 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		09E2FA622C76BD5200E0B832 /* ExerciseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseList.swift; sourceTree = "<group>"; };
 		09E2FA642C76BD6B00E0B832 /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
 		09E2FA662C76BDA400E0B832 /* DashboardHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHome.swift; sourceTree = "<group>"; };
@@ -139,6 +144,8 @@
 		09A128B52C7491BA009D6A1F /* cbc4b */ = {
 			isa = PBXGroup;
 			children = (
+				092D471F2CA939D700D3DF43 /* Info.plist */,
+				09665E1A2CA687570030BC70 /* AuthManager.swift */,
 				09CB99202C97E39A00973E5E /* cbc4b.entitlements */,
 				09CB99192C97DA8000973E5E /* GoogleService-Info.plist */,
 				09E2FA5C2C76BB7D00E0B832 /* Views */,
@@ -219,6 +226,7 @@
 		09E2FA5E2C76BBDF00E0B832 /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				09E0DAC52CA5709700720D51 /* LogIn.swift */,
 				09A59F792C951F1500E21539 /* Start.swift */,
 				09A59F7B2C9520E900E21539 /* SignUp.swift */,
 				09A59F7D2C9523F100E21539 /* ShareData.swift */,
@@ -406,7 +414,9 @@
 				09E2FA692C76C16000E0B832 /* ProfileEditor.swift in Sources */,
 				09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */,
 				09A59F7E2C9523F100E21539 /* ShareData.swift in Sources */,
+				09665E1B2CA6875C0030BC70 /* AuthManager.swift in Sources */,
 				09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */,
+				09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */,
 				09E2FA6D2C76C17600E0B832 /* ProfileSummary.swift in Sources */,
 				09E2FA712C76C84800E0B832 /* ModelData.swift in Sources */,
 				09E2FA6F2C76C28F00E0B832 /* Profile.swift in Sources */,
@@ -578,6 +588,7 @@
 				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/cbc4b/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -608,6 +619,7 @@
 				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/cbc4b/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -633,6 +645,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
@@ -652,6 +665,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
@@ -668,8 +682,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jasmine.cbc4bUITests;
@@ -685,8 +701,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = jasmine.cbc4bUITests;

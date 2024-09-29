@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileSummary: View {
-    @Environment(ModelData.self) var modelData
+    @EnvironmentObject var modelData: ModelData
     var profile: Profile
     
     var body: some View {
@@ -25,13 +25,13 @@ struct ProfileSummary: View {
                 Divider()
                 
                 Text("Age: \(String(format: "%.f", profile.age))")
-                Text("Height: \(profile.height)")
+                Text("Height: \(profile.height.rawValue)")
                 Text("Weight: \(String(format: "%.2f", profile.weight)) kg")
-                Text("Sex: \(profile.sex)")
-                Text("Fitness activity level: \(profile.fitnessActivityLevel)")
+                Text("Sex: \(profile.sex.rawValue)")
+                Text("Fitness activity level: \(profile.fitnessActivityLevel.rawValue)")
                 
                 Divider()
-                Text("Goal: \(profile.goal)")
+                Text("Goal: \(profile.goal.rawValue)")
             }
         }
     }
@@ -39,5 +39,5 @@ struct ProfileSummary: View {
 
 #Preview {
     ProfileSummary(profile: Profile.default)
-        .environment(ModelData())
+        .environmentObject(ModelData())
 }
