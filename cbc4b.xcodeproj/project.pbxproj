@@ -57,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092D471F2CA939D700D3DF43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		09665E1A2CA687570030BC70 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		09A128B32C7491BA009D6A1F /* cbc4b.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cbc4b.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A128B62C7491BA009D6A1F /* cbc4bApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cbc4bApp.swift; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		09A128B52C7491BA009D6A1F /* cbc4b */ = {
 			isa = PBXGroup;
 			children = (
+				092D471F2CA939D700D3DF43 /* Info.plist */,
 				09665E1A2CA687570030BC70 /* AuthManager.swift */,
 				09CB99202C97E39A00973E5E /* cbc4b.entitlements */,
 				09CB99192C97DA8000973E5E /* GoogleService-Info.plist */,
@@ -586,6 +588,7 @@
 				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/cbc4b/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -616,6 +619,7 @@
 				DEVELOPMENT_TEAM = WUX8WBKTG2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/cbc4b/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
