@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileHost: View {
     @Environment(\.editMode) var editMode
     @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var authManager: AuthManager
     @State private var draftProfile = Profile.default
 
     var body: some View {
@@ -37,6 +38,14 @@ struct ProfileHost: View {
             }
         }
         .padding()
+        Button("Sign Out") {
+            authManager.signOut { error in
+                if let error = error {
+                    print("Sign-out error: \(error.localizedDescription)")
+                    // Show error
+                }
+            }
+        }
     }
 }
 

@@ -43,7 +43,7 @@ struct SignUp: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Tell us about you")
+                //Text("Tell us about you")
                 ProfileEditor(profile: $blankProfile, signup: true)
                 
                 if showError {
@@ -68,7 +68,7 @@ struct SignUp: View {
                 }
             }
 
-        }
+        }.navigationTitle("Tell us about you")
     }
 
     private func signUpUserSignIn() {

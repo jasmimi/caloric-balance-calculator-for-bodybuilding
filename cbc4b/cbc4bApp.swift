@@ -21,15 +21,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct cbc4bApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
-    // Create an instance of ModelData as a StateObject
     @StateObject var modelData = ModelData()
+    @StateObject private var authManager = AuthManager()
 
     var body: some Scene {
         WindowGroup {
-            // Inject the ModelData instance into the environment for use in views
             ContentView()
                 .environmentObject(modelData)
+                .environmentObject(authManager)
         }
     }
 }

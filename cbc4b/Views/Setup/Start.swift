@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Start: View {
+    @EnvironmentObject var authManager: AuthManager
+
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
@@ -26,9 +28,11 @@ struct Start: View {
                         HStack {
                             NavigationLink ("Log in"){
                                 LogIn()
+                                    .environmentObject(authManager)
                             }.buttonStyle(.bordered)
                             NavigationLink ("Sign up"){
                                 SignUp()
+                                    .environmentObject(authManager)
                             }.buttonStyle(.bordered)
                         }
                         
