@@ -21,6 +21,7 @@
 		09A128C82C7491BB009D6A1F /* cbc4bTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128C72C7491BB009D6A1F /* cbc4bTests.swift */; };
 		09A128D22C7491BB009D6A1F /* cbc4bUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128D12C7491BB009D6A1F /* cbc4bUITests.swift */; };
 		09A128D42C7491BB009D6A1F /* cbc4bUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128D32C7491BB009D6A1F /* cbc4bUITestsLaunchTests.swift */; };
+		09A4A8052CADE9FE00A8993E /* HealthKitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4A8042CADE9F700A8993E /* HealthKitStore.swift */; };
 		09A59F7A2C951F1500E21539 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A59F792C951F1500E21539 /* Start.swift */; };
 		09A59F7C2C9520E900E21539 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A59F7B2C9520E900E21539 /* SignUp.swift */; };
 		09A59F7E2C9523F100E21539 /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A59F7D2C9523F100E21539 /* ShareData.swift */; };
@@ -69,6 +70,7 @@
 		09A128CD2C7491BB009D6A1F /* cbc4bUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cbc4bUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A128D12C7491BB009D6A1F /* cbc4bUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cbc4bUITests.swift; sourceTree = "<group>"; };
 		09A128D32C7491BB009D6A1F /* cbc4bUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cbc4bUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		09A4A8042CADE9F700A8993E /* HealthKitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitStore.swift; sourceTree = "<group>"; };
 		09A59F792C951F1500E21539 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		09A59F7B2C9520E900E21539 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		09A59F7D2C9523F100E21539 /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		09E2FA5A2C76BB7400E0B832 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				09A4A8042CADE9F700A8993E /* HealthKitStore.swift */,
 				09E2FA6E2C76C28F00E0B832 /* Profile.swift */,
 				09E2FA702C76C84800E0B832 /* ModelData.swift */,
 			);
@@ -417,6 +420,7 @@
 				09665E1B2CA6875C0030BC70 /* AuthManager.swift in Sources */,
 				09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */,
 				09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */,
+				09A4A8052CADE9FE00A8993E /* HealthKitStore.swift in Sources */,
 				09E2FA6D2C76C17600E0B832 /* ProfileSummary.swift in Sources */,
 				09E2FA712C76C84800E0B832 /* ModelData.swift in Sources */,
 				09E2FA6F2C76C28F00E0B832 /* Profile.swift in Sources */,

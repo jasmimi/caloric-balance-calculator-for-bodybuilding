@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import Foundation
+import HealthKit
 
 struct DashboardHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
     var profile: Profile
-    
+    var healthKitStore: HealthKitStore
+
     var body: some View {
         NavigationStack {
             List {
+                if HKHealthStore.isHealthDataAvailable() {
+                    healthKitStore.fetchCaloricExpenditureForToday(completion: <#T##(HKStatisticsCollection?) -> Void#>)
+                }
             }
             .listStyle(.inset)
             .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal.rawValue))")
