@@ -12,6 +12,7 @@ import HealthKit
 struct DashboardHome: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingProfile = false
+    @State private var caloricExpenditure: Double? = nil  // State variable to store fetched data
     var profile: Profile
     var healthKitStore: HealthKitStore
 
@@ -19,7 +20,13 @@ struct DashboardHome: View {
         NavigationStack {
             List {
                 if HKHealthStore.isHealthDataAvailable() {
-                    healthKitStore.fetchCaloricExpenditureForToday(completion: <#T##(HKStatisticsCollection?) -> Void#>)
+                    if let calories = caloricExpenditure {
+                        Text("Calories Burned Today: \(String(format: "%.0f", calories)) kcal") // Display the calories as an integer
+                    } else {
+                        Text("Fetching Caloric Expenditure...")
+                    }
+                } else {
+                    Text("Health data not available")
                 }
             }
             .listStyle(.inset)
@@ -35,7 +42,18 @@ struct DashboardHome: View {
                 ProfileHost()
                     .environmentObject(modelData)
             }
-        } 
+            .onAppear {
+                fetchCaloricExpenditure()
+            }
+        }
+    }
+    
+    func fetchCaloricExpenditure() {
+        healthKitStore.fetchCaloricExpenditureForToday { calories in
+            DispatchQueue.main.async {
+                self.caloricExpenditure = calories // Update state variable
+            }
+        }
     }
     
     func genTitle(goal: String) -> String {
@@ -48,6 +66,6 @@ struct DashboardHome: View {
 }
 
 #Preview {
-    DashboardHome(profile: Profile.default)
+    DashboardHome(profile: Profile.default, healthKitStore: <#HealthKitStore#>)
         .environmentObject(ModelData())
 }
