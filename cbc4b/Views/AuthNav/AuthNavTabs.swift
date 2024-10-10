@@ -18,7 +18,7 @@ struct AuthNavTabs: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            DashboardHome(profile: Profile.default)
+            DashboardHome(profile: Profile.default, healthKitStore: HealthKitStore.init())
                 .tabItem {
                     Label("Dashboard", systemImage: "brain.head.profile")
                 }
