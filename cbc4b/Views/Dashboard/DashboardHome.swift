@@ -26,19 +26,23 @@ struct DashboardHome: View {
                     if let caloriesExp = caloricExpenditure {
                         Text("Calories Burned Today: \(String(format: "%.0f", caloriesExp)) kcal") // Display the calories as an integer
                         
-                        // Daily caloric intake
-                        if let caloriesInt = caloricIntake {
-                            Text("Calories Consumed Today: \(String(format: "%.0f", caloriesInt)) kcal") // Display the calories as an integer
-                            
-                            // Daily caloric balance
-                            Text("Daily Caloric Balance: \(String(format: "%.0f", caloriesInt - caloriesExp)) kcal")
-                            
-                        } else {
-                            Text("Fetching Caloric Intake...")
-                        }
-                        
                     } else {
                         Text("Fetching Caloric Expenditure...")
+                    }
+                    
+                    // Daily caloric intake
+                    if let caloriesInt = caloricIntake {
+                        Text("Calories Consumed Today: \(String(format: "%.0f", caloriesInt)) kcal") // Display the calories as an integer
+                        
+                    } else {
+                        Text("Fetching Caloric Intake...")
+                    }
+                    
+                    // Daily caloric balance
+                    if let caloriesExp = caloricExpenditure, let caloriesInt = caloricIntake {
+                        Text("Daily Caloric Balance: \(String(format: "%.0f", caloriesInt - caloriesExp)) kcal")
+                    } else {
+                        Text("Fetching Caloric Balance...")
                     }
                     
 
@@ -62,6 +66,7 @@ struct DashboardHome: View {
             }
             .onAppear {
                 fetchCaloricExpenditure()
+                fetchCaloricIntake()
             }
         }
     }
@@ -70,6 +75,14 @@ struct DashboardHome: View {
         healthKitStore.fetchCaloricExpenditureForToday { calories in
             DispatchQueue.main.async {
                 self.caloricExpenditure = calories // Update state variable
+            }
+        }
+    }
+    
+    func fetchCaloricIntake() {
+        healthKitStore.fetchCaloricIntakeForToday { calories in
+            DispatchQueue.main.async {
+                self.caloricIntake = calories
             }
         }
     }
