@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import HealthKit
+import Charts
 
 struct DashboardHome: View {
     @EnvironmentObject var modelData: ModelData
@@ -21,6 +22,8 @@ struct DashboardHome: View {
         NavigationStack {
             List {
                 if HKHealthStore.isHealthDataAvailable() {
+                    
+                    
                     
                     // Daily caloric expenditure
                     if let caloriesExp = caloricExpenditure {

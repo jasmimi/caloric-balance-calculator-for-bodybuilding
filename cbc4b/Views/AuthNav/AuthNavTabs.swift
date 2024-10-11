@@ -24,13 +24,13 @@ struct AuthNavTabs: View {
                 }
                 .tag(Tab.dashboard)
             
-            MealList()
+            MealList(healthKitStore: HealthKitStore.init())
                 .tabItem {
                     Label("Meal", systemImage: "carrot")
                 }
                 .tag(Tab.meal)
             
-            ExerciseList()
+            ExerciseList(healthKitStore: HealthKitStore.init())
                 .tabItem {
                     Label("Exercise", systemImage: "figure.run.circle")
                 }

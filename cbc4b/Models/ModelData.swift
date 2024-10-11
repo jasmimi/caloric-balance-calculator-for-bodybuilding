@@ -11,6 +11,7 @@ import SwiftUI
 class ModelData: ObservableObject {
     // Use @Published to allow SwiftUI to observe changes to this property
     @Published var profile = Profile.default
+    @Published var meal = Meal.default
 }
 
 func load<T: Decodable>(_ filename: String) -> T {

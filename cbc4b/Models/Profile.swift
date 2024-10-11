@@ -99,8 +99,6 @@ struct Profile {
         case unspecified = ""
         case f = "Female"
         case m = "Male"
-        case o = "Other"
-        
         var id: String { rawValue }
     }
     
