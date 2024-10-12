@@ -20,6 +20,9 @@ struct Profile {
     var fitnessActivityLevel: FitnessActivityLevel
     var goal: Goal
     
+    // TO CALCULATE WITH EQUATIONs
+    var goalCalories: Double
+    
     static let `default` = Profile(
         email: "jvq3854@autuni.ac.nz"
         , password: "meow"
@@ -31,7 +34,8 @@ struct Profile {
         , weight: 60.1
         , sex: Sex.f
         , fitnessActivityLevel: FitnessActivityLevel.va
-        , goal: Goal.m)
+        , goal: Goal.m
+        , goalCalories: 1000)
     
     static let blank = Profile(
         email: ""
@@ -44,7 +48,8 @@ struct Profile {
         , weight: 0
         , sex: .unspecified
         , fitnessActivityLevel: .unspecified
-        , goal: .unspecified)
+        , goal: .unspecified
+        , goalCalories: 0)
     
     enum Height: String, CaseIterable, Identifiable {
         case unspecified = ""
@@ -94,8 +99,6 @@ struct Profile {
         case unspecified = ""
         case f = "Female"
         case m = "Male"
-        case o = "Other"
-        
         var id: String { rawValue }
     }
     

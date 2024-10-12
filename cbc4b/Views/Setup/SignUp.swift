@@ -15,7 +15,9 @@ struct SignUp: View {
     @State private var isSignedUp: Bool = false // Tracks successful sign-up to navigate
     @State private var uid: String? = nil // Store the UID
     @EnvironmentObject var authManager: AuthManager // Add this line
+    private var bmr: Double = 0
 
+    
     private var isFormFilled: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
@@ -67,6 +69,64 @@ struct SignUp: View {
         }
     }
 
+    private func convertHeightToCm() -> Double {
+        let heightInFeet = blankProfile.height.rawValue // Extract height from enum
+        let feet = Double(heightInFeet.split(separator: "'")[0]) ?? 0
+        let inches = Double(heightInFeet.split(separator: "'")[1].replacingOccurrences(of: "\"", with: "")) ?? 0
+        return (feet * 30.48) + (inches * 2.54) // Convert to cm
+    }
+    
+    private func calculateGoalCalories() -> Double {
+        // Step 1: Calculate BMR
+        var bmr: Double
+        if self.blankProfile.sex.rawValue == "Female" {
+            bmr = 10 * self.blankProfile.weight + 6.25 * convertHeightToCm() - 5 * self.blankProfile.age - 161
+        } else {
+            bmr = 10 * self.blankProfile.weight + 6.25 * convertHeightToCm() - 5 * self.blankProfile.age + 5
+        }
+        
+        // Step 2: Apply activity level multiplier to calculate TDEE
+        let activityMultiplier: Double
+        switch self.blankProfile.fitnessActivityLevel {
+        case .s:
+            activityMultiplier = 1.2
+        case .l:
+            activityMultiplier = 1.375
+        case .m:
+            activityMultiplier = 1.55
+        case .a:
+            activityMultiplier = 1.725
+        case .va:
+            activityMultiplier = 1.9
+        case .ea:
+            activityMultiplier = 2.0
+        default:
+            activityMultiplier = 1.0 // If unspecified, assume sedentary
+        }
+        
+        let tdee = bmr * activityMultiplier
+
+        // Step 3: Adjust for goal (cut, major cut, bulk, major bulk, maintain)
+        let goalCalories: Double
+        switch self.blankProfile.goal {
+        case .c: // Cutting goal
+            goalCalories = tdee * 0.90 // Subtract 10% for cutting
+        case .mc: // Major cutting goal
+            goalCalories = tdee * 0.80 // Subtract 20% for major cutting
+        case .b: // Bulking goal
+            goalCalories = tdee * 1.1 // Add 10% for bulking
+        case .mb: // Major bulking goal
+            goalCalories = tdee * 1.2 // Add 20% for major bulking
+        case .m: // Maintaining goal
+            goalCalories = tdee
+        default:
+            goalCalories = tdee // Default to maintenance if goal is unspecified
+        }
+        
+        return goalCalories
+    }
+
+    
     private func signUpUser() {
         authManager.createAccount(withEmail: blankProfile.email, password: blankProfile.password) { error in
             if let error = error {
@@ -91,7 +151,8 @@ struct SignUp: View {
                     "sex": self.blankProfile.sex.rawValue,
                     "fitnessActivityLevel": self.blankProfile.fitnessActivityLevel.rawValue,
                     "goal": self.blankProfile.goal.rawValue,
-                    "notifications": self.blankProfile.prefersNotifications
+                    "notifications": self.blankProfile.prefersNotifications,
+                    "goalCalories": calculateGoalCalories()
                 ]) { err in
                     if let err = err {
                         self.errorMessage = "Error saving user data: \(err.localizedDescription)"

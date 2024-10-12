@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Our app lets you manually log data to help us provide personalised fitness insights</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Your data helps us provide personalized fitness insights.</string>
+	<string>Your data helps us provide personalised fitness insights.</string>
 </dict>
 </plist>

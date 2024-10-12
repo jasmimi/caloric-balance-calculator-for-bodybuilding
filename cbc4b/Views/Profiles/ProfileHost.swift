@@ -15,26 +15,11 @@ struct ProfileHost: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                if editMode?.wrappedValue == .active {
-                    Button("Cancel", role: .cancel) {
-                        draftProfile = modelData.profile
-                        editMode?.animation().wrappedValue = .inactive
-                    }
-                }
-                Spacer()
-                EditButton()
-            }
-            if editMode?.wrappedValue == .inactive {
-                ProfileSummary(profile: modelData.profile)
-            } else {
-                ProfileEditor(profile: $draftProfile)
-                    .onAppear {
-                        draftProfile = modelData.profile
-                    }
-                    .onDisappear {
-                        modelData.profile = draftProfile
-                    }
+            ProfileSummary(profile: modelData.profile)
+        }
+        .onAppear{
+            if let uid = authManager.currentUserUID {
+                modelData.loadProfile(uid: uid)
             }
         }
         .padding()
@@ -49,9 +34,7 @@ struct ProfileHost: View {
     }
 }
 
-
 #Preview {
     ProfileHost()
         .environmentObject(ModelData())
 }
-

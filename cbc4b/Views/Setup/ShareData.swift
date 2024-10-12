@@ -18,15 +18,24 @@ struct ShareData: View {
     
     // Function to request permission for HealthKit data
     private func requestHealthKitAccess() {
+        guard HKHealthStore.isHealthDataAvailable() else {
+            print("HealthKit is not available on this device.")
+            return
+        }
+        
         // Safely unwrap the HKObjectTypes
         if let activeEnergyBurned = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned),
            let dietaryEnergyConsumed = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) {
             
-            let allTypes: Set<HKObjectType> = [activeEnergyBurned,
-                                               HKObjectType.workoutType(),
-                                               dietaryEnergyConsumed]
+            let readTypes: Set<HKObjectType> = [activeEnergyBurned,
+                                                dietaryEnergyConsumed]
             
-            healthStore.requestAuthorization(toShare: [], read: allTypes) { success, error in
+            // Add types to share (write) here
+            let writeTypes: Set<HKSampleType> = [activeEnergyBurned,
+                                                 dietaryEnergyConsumed]
+            
+            // Request both read and write permissions
+            healthStore.requestAuthorization(toShare: writeTypes, read: readTypes) { success, error in
                 if !success {
                     print("HealthKit authorization failed: \(String(describing: error?.localizedDescription))")
                 }
@@ -45,20 +54,20 @@ struct ShareData: View {
                 Toggle(isOn: $appleHealthToggle) {
                     Text("Apple Health data")
                 }
-                .onChange(of: appleHealthToggle) { value in
-                    if value {
+                .onChange(of: appleHealthToggle){ newValue in
+                    if newValue {
                         requestHealthKitAccess()
                     }
                 }
                 
                 NavigationLink("Continue") {
-                     ContentView()
-                         .onAppear {
-                             if appleHealthToggle {
-                                 authManager.markShareDataComplete()
-                             }
-                         }
-                 }
+                    ContentView()
+                        .onAppear {
+                            if appleHealthToggle {
+                                authManager.markShareDataComplete()
+                            }
+                        }
+                }
                 .disabled(!(appleHealthToggle))
                 .padding()
                 
@@ -68,6 +77,7 @@ struct ShareData: View {
                 }
             }
             .padding()
+
         }
     }
 }
