@@ -60,28 +60,43 @@ struct ExerciseEntry: View {
     }
     
     func addExerciseToHealthKit(calories: Double, date: Date, healthStore: HKHealthStore) {
-        // 1. Define the dietary energy consumed quantity type
+        // 1. Define the active energy burned quantity type
         guard let activeEnergyBurnedType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
-            print("Dietary energy consumed type is not available.")
+            print("Active energy burned type is not available.")
             return
         }
-        
-        // 2. Create the HKQuantity to represent the energy consumed (in kilocalories)
-        let energyBurnedQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: calories)
-        
-        // 3. Create the HKQuantitySample to store the energy consumed and the date/time
-        let energyBurnedSample = HKQuantitySample(type: activeEnergyBurnedType, quantity: energyBurnedQuantity, start: date, end: date)
-        
-        // 4. Save the sample to HealthKit
-        healthStore.save(energyBurnedSample) { success, error in
-            if success {
-                print("Successfully saved active energy burned to HealthKit!")
-                dismiss()  // Dismiss the sheet upon success
-            } else if let error = error {
-                print("Error saving active energy burned: \(error.localizedDescription)")
+
+        // 2. Ensure authorization before trying to save
+        healthStore.getRequestStatusForAuthorization(toShare: [activeEnergyBurnedType], read: [activeEnergyBurnedType]) { (status, error) in
+            if status == .unnecessary {
+                print("Permissions have already been granted.")
+            } else if status == .shouldRequest || status == .unknown {
+                print("Request for permissions.")
+            }
+
+            if let error = error {
+                print("Authorization error: \(error.localizedDescription)")
+                return
+            }
+
+            // 3. Create the HKQuantity to represent the energy burned
+            let energyBurnedQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: calories)
+
+            // 4. Create the HKQuantitySample to store the energy burned
+            let energyBurnedSample = HKQuantitySample(type: activeEnergyBurnedType, quantity: energyBurnedQuantity, start: date, end: date)
+
+            // 5. Save the sample to HealthKit
+            healthStore.save(energyBurnedSample) { success, error in
+                if success {
+                    print("Successfully saved active energy burned to HealthKit!")
+                    dismiss()  // Dismiss the sheet upon success
+                } else if let error = error {
+                    print("Error saving active energy burned: \(error.localizedDescription)")
+                }
             }
         }
     }
+
 }
 
 #Preview {

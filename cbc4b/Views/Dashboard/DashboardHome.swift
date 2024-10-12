@@ -12,6 +12,7 @@ import Charts
 
 struct DashboardHome: View {
     @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var authManager: AuthManager
     @State private var showingProfile = false
     @State private var caloricExpenditure: Double? = nil  // State variable to store fetched data
     @State private var caloricIntake: Double? = nil  // State variable to store fetched data
@@ -23,14 +24,12 @@ struct DashboardHome: View {
             List {
                 if HKHealthStore.isHealthDataAvailable() {
                     
-                    
-                    
                     // Daily caloric expenditure
                     if let caloriesExp = caloricExpenditure {
                         Text("Calories Burned Today: \(String(format: "%.0f", caloriesExp)) kcal") // Display the calories as an integer
                         
                     } else {
-                        Text("Fetching Caloric Expenditure...")
+                        Text("Fetching Todays Caloric Expenditure...")
                     }
                     
                     // Daily caloric intake
@@ -38,24 +37,22 @@ struct DashboardHome: View {
                         Text("Calories Consumed Today: \(String(format: "%.0f", caloriesInt)) kcal") // Display the calories as an integer
                         
                     } else {
-                        Text("Fetching Caloric Intake...")
+                        Text("Fetching Todays Caloric Intake...")
                     }
                     
                     // Daily caloric balance
                     if let caloriesExp = caloricExpenditure, let caloriesInt = caloricIntake {
                         Text("Daily Caloric Balance: \(String(format: "%.0f", caloriesInt - caloriesExp)) kcal")
                     } else {
-                        Text("Fetching Caloric Balance...")
+                        Text("Fetching Todays Caloric Balance...")
                     }
-                    
-
-                    
+                                    
                 } else {
                     Text("Health data not available")
                 }
             }
             .listStyle(.inset)
-            .navigationTitle("\(profile.firstName)'s \(genTitle(goal: profile.goal.rawValue))")
+            .navigationTitle("\(modelData.profile.firstName)'s \(genTitle(goal: modelData.profile.goal.rawValue))")
             .toolbar {
                 Button {
                     showingProfile.toggle()
@@ -68,6 +65,9 @@ struct DashboardHome: View {
                     .environmentObject(modelData)
             }
             .onAppear {
+                if let uid = authManager.currentUserUID {
+                    modelData.loadProfile(uid: uid)
+                }
                 fetchCaloricExpenditure()
                 fetchCaloricIntake()
             }
@@ -91,7 +91,7 @@ struct DashboardHome: View {
     }
     
     func genTitle(goal: String) -> String {
-        var x = profile.goal.rawValue
+        var x = modelData.profile.goal.rawValue
         if (x == "Maintain"){
             x = "maintenance"
         }

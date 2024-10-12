@@ -14,6 +14,9 @@
 		0928C97B2C9A8EB0002B545A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0928C97A2C9A8EB0002B545A /* FirebaseAuth */; };
 		0928C97D2C9A8EB0002B545A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0928C97C2C9A8EB0002B545A /* FirebaseFirestore */; };
 		09665E1B2CA6875C0030BC70 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09665E1A2CA687570030BC70 /* AuthManager.swift */; };
+		097748F22CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097748F12CB9D9AE00EF8471 /* ProfileEditor.swift */; };
+		097748F32CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097748F12CB9D9AE00EF8471 /* ProfileEditor.swift */; };
+		097748F42CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097748F12CB9D9AE00EF8471 /* ProfileEditor.swift */; };
 		09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128B62C7491BA009D6A1F /* cbc4bApp.swift */; };
 		09A128B92C7491BA009D6A1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A128B82C7491BA009D6A1F /* ContentView.swift */; };
 		09A128BB2C7491BB009D6A1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A128BA2C7491BB009D6A1F /* Assets.xcassets */; };
@@ -37,7 +40,6 @@
 		09E2FA632C76BD5200E0B832 /* ExerciseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA622C76BD5200E0B832 /* ExerciseList.swift */; };
 		09E2FA652C76BD6B00E0B832 /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA642C76BD6B00E0B832 /* MealList.swift */; };
 		09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA662C76BDA400E0B832 /* DashboardHome.swift */; };
-		09E2FA692C76C16000E0B832 /* ProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA682C76C16000E0B832 /* ProfileEditor.swift */; };
 		09E2FA6B2C76C16E00E0B832 /* ProfileHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA6A2C76C16E00E0B832 /* ProfileHost.swift */; };
 		09E2FA6D2C76C17600E0B832 /* ProfileSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA6C2C76C17600E0B832 /* ProfileSummary.swift */; };
 		09E2FA6F2C76C28F00E0B832 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FA6E2C76C28F00E0B832 /* Profile.swift */; };
@@ -64,6 +66,7 @@
 /* Begin PBXFileReference section */
 		092D471F2CA939D700D3DF43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		09665E1A2CA687570030BC70 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		097748F12CB9D9AE00EF8471 /* ProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditor.swift; sourceTree = "<group>"; };
 		09A128B32C7491BA009D6A1F /* cbc4b.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cbc4b.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A128B62C7491BA009D6A1F /* cbc4bApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cbc4bApp.swift; sourceTree = "<group>"; };
 		09A128B82C7491BA009D6A1F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,7 +91,6 @@
 		09E2FA622C76BD5200E0B832 /* ExerciseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseList.swift; sourceTree = "<group>"; };
 		09E2FA642C76BD6B00E0B832 /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
 		09E2FA662C76BDA400E0B832 /* DashboardHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHome.swift; sourceTree = "<group>"; };
-		09E2FA682C76C16000E0B832 /* ProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditor.swift; sourceTree = "<group>"; };
 		09E2FA6A2C76C16E00E0B832 /* ProfileHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHost.swift; sourceTree = "<group>"; };
 		09E2FA6C2C76C17600E0B832 /* ProfileSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSummary.swift; sourceTree = "<group>"; };
 		09E2FA6E2C76C28F00E0B832 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -229,7 +231,7 @@
 		09E2FA5D2C76BBD300E0B832 /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
-				09E2FA682C76C16000E0B832 /* ProfileEditor.swift */,
+				097748F12CB9D9AE00EF8471 /* ProfileEditor.swift */,
 				09E2FA6A2C76C16E00E0B832 /* ProfileHost.swift */,
 				09E2FA6C2C76C17600E0B832 /* ProfileSummary.swift */,
 			);
@@ -427,11 +429,11 @@
 				09A128B92C7491BA009D6A1F /* ContentView.swift in Sources */,
 				09E2FA6B2C76C16E00E0B832 /* ProfileHost.swift in Sources */,
 				09C1E5832CB8C25400617A9D /* Exercise.swift in Sources */,
-				09E2FA692C76C16000E0B832 /* ProfileEditor.swift in Sources */,
 				09E2FA672C76BDA400E0B832 /* DashboardHome.swift in Sources */,
 				09C1E5812CB8C17000617A9D /* ExerciseEntry.swift in Sources */,
 				09A59F7E2C9523F100E21539 /* ShareData.swift in Sources */,
 				09665E1B2CA6875C0030BC70 /* AuthManager.swift in Sources */,
+				097748F22CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */,
 				09C1E57F2CB8B15100617A9D /* Meal.swift in Sources */,
 				09A128B72C7491BA009D6A1F /* cbc4bApp.swift in Sources */,
 				09E0DAC62CA5709D00720D51 /* LogIn.swift in Sources */,
@@ -448,6 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				097748F32CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */,
 				09A128C82C7491BB009D6A1F /* cbc4bTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +461,7 @@
 			files = (
 				09A128D22C7491BB009D6A1F /* cbc4bUITests.swift in Sources */,
 				09A128D42C7491BB009D6A1F /* cbc4bUITestsLaunchTests.swift in Sources */,
+				097748F42CB9D9AE00EF8471 /* ProfileEditor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
