@@ -77,6 +77,8 @@ struct ExerciseList: View {
             }
         }
     }
+    
+    
 }
 
 #Preview {
