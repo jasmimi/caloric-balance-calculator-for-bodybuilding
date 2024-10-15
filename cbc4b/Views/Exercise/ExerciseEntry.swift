@@ -50,7 +50,7 @@ struct ExerciseEntry: View {
                 TextField("Expenditure", value: $exercise.expenditure, formatter: NumberFormatter())
             }
             
-            Button("Add to meal log") {
+            Button("Add to exercise log") {
                 addExerciseToHealthKit(calories: exercise.expenditure, date: date, healthStore: healthKitStore)
             }
             .buttonStyle(.borderedProminent)

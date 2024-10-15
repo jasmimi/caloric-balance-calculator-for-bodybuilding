@@ -11,6 +11,7 @@ class HealthKitStore {
     
     let healthStore = HKHealthStore()
     
+    
     func fetchCaloricExpenditureForToday(completion: @escaping (Double?) -> Void) {
         
         guard let caloricExpendType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
@@ -121,6 +122,8 @@ class HealthKitStore {
         healthStore.execute(expenditureQuery)
     }
     
+    
+    
     func fetchCaloricIntakeForWeekLog(completion: @escaping ([(date: Date, time: Date, calories: Double)]?) -> Void) {
         
         guard let caloricIntakeType = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
@@ -163,5 +166,112 @@ class HealthKitStore {
         
         // Execute the query
         healthStore.execute(intakeQuery)
+    }
+    
+    func fetchCaloricIntakeForWeek(completion: @escaping ([Double]?) -> Void) {
+        
+        guard let caloricIntakeType = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
+            fatalError("*** Dietary Energy Consumed is no longer available ***")
+        }
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let today = calendar.startOfDay(for: Date())
+        
+        // Define start and end dates for the past week
+        let startDate = calendar.date(byAdding: .day, value: -7, to: today) ?? today
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)  // Tomorrow's start for the end of today
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        
+        // Use HKSampleQuery to fetch the samples within the date range
+        let intakeQuery = HKSampleQuery(sampleType: caloricIntakeType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
+            
+            if let error = error {
+                print("*** Error fetching caloric intake: \(error.localizedDescription) ***")
+                completion(nil)
+                return
+            }
+            
+            // Create a dictionary to store total calories per day
+            var dailyCalories = [Date: Double]()
+            
+            if let quantitySamples = samples as? [HKQuantitySample] {
+                for sample in quantitySamples {
+                    let calories = sample.quantity.doubleValue(for: .largeCalorie())  // Get calories as kcal
+                    let sampleDate = calendar.startOfDay(for: sample.startDate)  // Get the date part of the sample
+                    
+                    // Sum the calories for each day
+                    dailyCalories[sampleDate, default: 0.0] += calories
+                }
+            }
+            
+            // Generate an array of daily caloric intake for the past 7 days
+            var weeklyCalories: [Double] = []
+            for dayOffset in 0..<7 {
+                let day = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+                let dayStart = calendar.startOfDay(for: day)
+                let totalCaloriesForDay = dailyCalories[dayStart] ?? 0.0
+                weeklyCalories.append(totalCaloriesForDay)
+            }
+            
+            completion(weeklyCalories.reversed())  // Reverse to start with the earliest day in the array
+        }
+        
+        // Execute the query
+        healthStore.execute(intakeQuery)
+    }
+
+    
+    func fetchCaloricExpenditureForWeek(completion: @escaping ([Double]?) -> Void) {
+        
+        guard let caloricExpenditureType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            fatalError("*** Active Energy Burned is no longer available ***")
+        }
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let today = calendar.startOfDay(for: Date())
+        
+        // Define start and end dates for the past week
+        let startDate = calendar.date(byAdding: .day, value: -7, to: today) ?? today
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)  // Tomorrow's start for the end of today
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        
+        // Use HKSampleQuery to fetch the samples within the date range
+        let expenditureQuery = HKSampleQuery(sampleType: caloricExpenditureType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
+            
+            if let error = error {
+                print("*** Error fetching caloric expenditure: \(error.localizedDescription) ***")
+                completion(nil)
+                return
+            }
+            
+            // Create a dictionary to store total calories per day
+            var dailyCalories = [Date: Double]()
+            
+            if let quantitySamples = samples as? [HKQuantitySample] {
+                for sample in quantitySamples {
+                    let calories = sample.quantity.doubleValue(for: .largeCalorie())  // Get calories as kcal
+                    let sampleDate = calendar.startOfDay(for: sample.startDate)  // Get the date part of the sample
+                    
+                    // Sum the calories for each day
+                    dailyCalories[sampleDate, default: 0.0] += calories
+                }
+            }
+            
+            // Generate an array of daily caloric intake for the past 7 days
+            var weeklyCalories: [Double] = []
+            for dayOffset in 0..<7 {
+                let day = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+                let dayStart = calendar.startOfDay(for: day)
+                let totalCaloriesForDay = dailyCalories[dayStart] ?? 0.0
+                weeklyCalories.append(totalCaloriesForDay)
+            }
+            
+            completion(weeklyCalories.reversed())  // Reverse to start with the earliest day in the array
+        }
+        
+        // Execute the query
+        healthStore.execute(expenditureQuery)
     }
 }
