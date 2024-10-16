@@ -8,9 +8,9 @@ import Foundation
 import HealthKit
 
 class HealthKitStore {
-    
+    static let shared = HealthKitStore()
+    private init() {}
     let healthStore = HKHealthStore()
-    
     
     func fetchCaloricExpenditureForToday(completion: @escaping (Double?) -> Void) {
         

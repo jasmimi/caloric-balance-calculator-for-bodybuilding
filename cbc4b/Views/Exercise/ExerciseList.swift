@@ -82,6 +82,6 @@ struct ExerciseList: View {
 }
 
 #Preview {
-    ExerciseList(healthKitStore: HealthKitStore()) // Replace with a valid instance
+    ExerciseList(healthKitStore: HealthKitStore.shared) // Replace with a valid instance
         .environmentObject(ModelData())
 }

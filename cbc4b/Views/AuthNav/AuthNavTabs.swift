@@ -18,19 +18,19 @@ struct AuthNavTabs: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            DashboardHome(profile: Profile.default, healthKitStore: HealthKitStore.init())
+            DashboardHome(profile: Profile.default, healthKitStore: HealthKitStore.shared)
                 .tabItem {
                     Label("Dashboard", systemImage: "brain.head.profile")
                 }
                 .tag(Tab.dashboard)
             
-            MealList(healthKitStore: HealthKitStore.init())
+            MealList(healthKitStore: HealthKitStore.shared)
                 .tabItem {
                     Label("Meal", systemImage: "carrot")
                 }
                 .tag(Tab.meal)
             
-            ExerciseList(healthKitStore: HealthKitStore.init())
+            ExerciseList(healthKitStore: HealthKitStore.shared)
                 .tabItem {
                     Label("Exercise", systemImage: "figure.run.circle")
                 }

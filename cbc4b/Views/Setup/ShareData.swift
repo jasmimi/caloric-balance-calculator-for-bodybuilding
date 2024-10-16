@@ -47,38 +47,56 @@ struct ShareData: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Share your data")
-                    .font(.headline)
-                
-                Toggle(isOn: $appleHealthToggle) {
-                    Text("Apple Health data")
-                }
-                .onChange(of: appleHealthToggle){ newValue in
-                    if newValue {
-                        requestHealthKitAccess()
+            VStack(spacing: 0){
+                ZStack(alignment: .bottomLeading) {
+                    Color.indigo
+                        .frame(width: .infinity, height: UIScreen.main.bounds.height / 5 * 3)
+                        .ignoresSafeArea()
+
+                    VStack {
+                        Spacer() // Pushes the content to the bottom
+                        Text("Share your data")
+                            .bold()
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0)) // Add some padding for spacing from edges
                     }
                 }
-                
-                NavigationLink("Continue") {
-                    ContentView()
-                        .onAppear {
+                ZStack (alignment: .top) {
+                    Color.white
+                        .frame(width: .infinity, height: UIScreen.main.bounds.height/5*2)
+                    VStack {
+                        
+                        Toggle(isOn: $appleHealthToggle) {
+                            Text("Apple Health data")
+                        }
+                        .onChange(of: appleHealthToggle){ newValue in
+                            if newValue {
+                                requestHealthKitAccess()
+                            }
+                        }
+                        
+                        Button(action: {
                             if appleHealthToggle {
                                 authManager.markShareDataComplete()
                             }
+                        }) {
+                            Text("Continue")
                         }
-                }
-                .disabled(!(appleHealthToggle))
-                .padding()
-                
-                if !(appleHealthToggle) {
-                    Text("Please enable toggle to continue")
-                        .foregroundColor(.red)
+                        .buttonStyle(.borderedProminent)
+                        .padding()
+                        .disabled(!appleHealthToggle)
+
+                        
+                        if !(appleHealthToggle) {
+                            Text("Please enable toggle to continue")
+                                .foregroundColor(.red)
+                        }
+                    }
+                    .padding()
                 }
             }
-            .padding()
-
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 

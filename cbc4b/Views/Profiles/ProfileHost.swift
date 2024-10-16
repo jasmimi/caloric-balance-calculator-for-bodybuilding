@@ -14,23 +14,24 @@ struct ProfileHost: View {
     @State private var draftProfile = Profile.default
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            ProfileSummary(profile: modelData.profile)
-        }
-        .onAppear{
-            if let uid = authManager.currentUserUID {
-                modelData.loadProfile(uid: uid)
+        VStack {
+            VStack(alignment: .leading, spacing: 20) {
+                ProfileSummary(profile: modelData.profile)
             }
-        }
-        .padding()
-        Button("Sign Out") {
-            authManager.signOut { error in
-                if let error = error {
-                    print("Sign-out error: \(error.localizedDescription)")
-                    // Show error
+            .onAppear{
+                if let uid = authManager.currentUserUID {
+                    modelData.loadProfile(uid: uid)
                 }
             }
-        }
+            .padding()
+            Button("Sign Out") {
+                authManager.signOut { error in
+                    if let error = error {
+                        print("Sign-out error: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }.padding()
     }
 }
 

@@ -22,7 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct cbc4bApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var modelData = ModelData()
-    @StateObject private var authManager = AuthManager()
+    @StateObject private var authManager = AuthManager.shared
 
     var body: some Scene {
         WindowGroup {

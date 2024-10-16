@@ -62,6 +62,13 @@ struct MealList: View {
             }
             .sheet(isPresented: $showingMealEntry) {
                 MealEntry(meal: $newMeal, healthKitStore: HKHealthStore())
+                    .onDisappear {
+                    // Add the new meal to the caloricIntake array when the sheet is dismissed
+                    if newMeal.intake > 0 {
+                        caloricIntake?.append((date: newMeal.date, time: newMeal.time, calories: newMeal.intake))
+                        caloricIntake = caloricIntake?.sorted { $0.date > $1.date } // Sort by date if needed
+                    }
+                }
             }
         }
         .onAppear {
@@ -79,6 +86,6 @@ struct MealList: View {
 }
 
 #Preview {
-    MealList(healthKitStore: HealthKitStore()) // Replace with a valid instance if needed
+    MealList(healthKitStore: HealthKitStore.shared) // Replace with a valid instance if needed
         .environmentObject(ModelData())
 }

@@ -18,7 +18,8 @@ struct DashboardHome: View {
     @State private var dailyCaloricExpenditure: Double? = nil
     @State private var dailyCaloricIntake: Double? = nil
     @State private var dailyCalorieGoal: Double? = nil
-    
+    @State private var animatedCaloricIntake: Double = 0.0
+
     @State private var weeklyCaloricExpenditure: [Double?] = [nil]
     @State private var weeklyCaloricIntake: [Double?] = [nil]
     
@@ -140,7 +141,11 @@ struct DashboardHome: View {
             Text("Consumed Today: \(String(format: "%.0f", dailyCaloricIntake ?? 0.0)) kcal")
             Text("Goal: \(String(format: "%.0f", dailyCalorieGoal ?? 0.0)) kcal")
 
-            ProgressView(value: dailyCaloricIntake, total: dailyCalorieGoal ?? 0.0)
+            ProgressView(value: animatedCaloricIntake, total: dailyCalorieGoal ?? 1.0) // Ensure the total is non-zero
+                .animation(.easeIn(duration: 2), value: animatedCaloricIntake)
+                .task() {
+                    animatedCaloricIntake = dailyCaloricIntake ?? 0.0
+                }
                 .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                 .frame(height: 20)
                 .padding()
@@ -199,6 +204,6 @@ struct DashboardHome: View {
 }
 
 #Preview {
-    DashboardHome(profile: Profile.default, healthKitStore: HealthKitStore.init())
+    DashboardHome(profile: Profile.default, healthKitStore: HealthKitStore.shared)
         .environmentObject(ModelData())
 }
