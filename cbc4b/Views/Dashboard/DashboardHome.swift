@@ -28,8 +28,14 @@ struct DashboardHome: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                VStack(spacing: 0){
+                    Color.indigo
+                        .frame(width: .infinity, height: UIScreen.main.bounds.height/2)
+                        .ignoresSafeArea()
+                    Color.white
+                        .frame(width: .infinity, height: UIScreen.main.bounds.height/2)
+                }
                 
-                // The ScrollView and its content should be on top of the indigo color
                 ScrollView {
                     VStack(spacing: 20) {
                         Spacer()
@@ -47,8 +53,8 @@ struct DashboardHome: View {
                         .shadow(radius: 5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.indigo, lineWidth: 2) // Border color and width
-                        ) // This adds a blue border around the VStack
+                                .stroke(Color.indigo, lineWidth: 2)
+                        )
                         
                         // Weekly Progress Box
                         VStack {
@@ -63,8 +69,8 @@ struct DashboardHome: View {
                         .shadow(radius: 5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.indigo, lineWidth: 2) // Border color and width
-                        ) // This adds a blue border around the VStack
+                                .stroke(Color.indigo, lineWidth: 2)
+                        )
                         Spacer()
                     }
                     .padding()
@@ -96,11 +102,10 @@ struct DashboardHome: View {
         }
     }
 
-    
     func fetchCaloricData() {
         healthKitStore.fetchCaloricExpenditureForToday { calories in
             DispatchQueue.main.async {
-                self.dailyCaloricExpenditure = calories // Update state variable
+                self.dailyCaloricExpenditure = calories
             }
         }
         healthKitStore.fetchCaloricIntakeForToday { calories in
@@ -113,7 +118,7 @@ struct DashboardHome: View {
                 if let unwrappedCalories = calories {
                     self.weeklyCaloricIntake = unwrappedCalories
                 } else {
-                    self.weeklyCaloricIntake = []  // Handle the case where there's no data
+                    self.weeklyCaloricIntake = []
                 }
             }
         }
@@ -122,13 +127,12 @@ struct DashboardHome: View {
                 if let unwrappedCalories = calories {
                     self.weeklyCaloricExpenditure = unwrappedCalories
                 } else {
-                    self.weeklyCaloricExpenditure = []  // Handle the case where there's no data
+                    self.weeklyCaloricExpenditure = []
                 }
             }
         }
         self.dailyCalorieGoal = profile.goalCalories
     }
-
         
     func genTitle(goal: String) -> String {
         var x = modelData.profile.goal.rawValue
@@ -165,6 +169,7 @@ struct DashboardHome: View {
     var weeklyLineChart: some View {
         VStack {
             Chart {
+                
                 // Line for calories consumed
                 ForEach(0..<weeklyCaloricIntake.count, id: \.self) { index in
                     LineMark(

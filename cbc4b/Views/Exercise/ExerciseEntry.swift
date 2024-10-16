@@ -29,34 +29,51 @@ struct ExerciseEntry: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Log exercise")
-                .bold()
-                .font(.title)
+        ZStack {
+            Color.indigo.ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            HStack{
-                DatePicker(
-                    "Date time",
-                     selection: $date,
-                     in: dateRange,
-                    displayedComponents: [.date, .hourAndMinute]
-                )
+            ZStack {
+                Color.white
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .frame(width: 350, height: UIScreen.main.bounds.height/3.5)
+                
+                VStack {
+                    Text("Log exercise")
+                        .bold()
+                        .font(.title)
+                    
+                    HStack{
+                        DatePicker(
+                            "Date time",
+                             selection: $date,
+                             in: dateRange,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top)
+                    
+                    HStack{
+                        Text("Calories Burned")
+                        Spacer()
+                        Spacer()
+                        TextField("Expenditure", value: $exercise.expenditure, formatter: NumberFormatter())
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    
+                    Button("Add to exercise log") {
+                        addExerciseToHealthKit(calories: exercise.expenditure, date: date, healthStore: healthKitStore)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!isFormFilled)
+                }
+                .padding()
             }
-            
-            HStack{
-                Text("Calories Burned")
-                Spacer()
-                Spacer()
-                TextField("Expenditure", value: $exercise.expenditure, formatter: NumberFormatter())
-            }
-            
-            Button("Add to exercise log") {
-                addExerciseToHealthKit(calories: exercise.expenditure, date: date, healthStore: healthKitStore)
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(!isFormFilled)
         }
-        .padding()
     }
     
     func addExerciseToHealthKit(calories: Double, date: Date, healthStore: HKHealthStore) {

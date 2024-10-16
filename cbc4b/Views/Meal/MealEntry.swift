@@ -29,34 +29,51 @@ struct MealEntry: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Log meal")
-                .bold()
-                .font(.title)
+        ZStack {
+            Color.indigo.ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            HStack{
-                DatePicker(
-                    "Date time",
-                     selection: $date,
-                     in: dateRange,
-                    displayedComponents: [.date, .hourAndMinute]
-                )
+            ZStack {
+                Color.white
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .frame(width: 350, height: UIScreen.main.bounds.height/3.5)
+                
+                VStack {
+                    Text("Log meal")
+                        .bold()
+                        .font(.title)
+                    
+                    HStack{
+                        DatePicker(
+                            "Date time",
+                             selection: $date,
+                             in: dateRange,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top)
+                    
+                    HStack{
+                        Text("Calories Consumed")
+                        Spacer()
+                        Spacer()
+                        TextField("Intake", value: $meal.intake, formatter: NumberFormatter())
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    
+                    Button("Add to meal log") {
+                        addMealToHealthKit(calories: meal.intake, date: date, healthStore: healthKitStore)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!isFormFilled)
+                }
+                .padding()
             }
-            
-            HStack{
-                Text("Calories Consumed")
-                Spacer()
-                Spacer()
-                TextField("Intake", value: $meal.intake, formatter: NumberFormatter())
-            }
-            
-            Button("Add to meal log") {
-                addMealToHealthKit(calories: meal.intake, date: date, healthStore: healthKitStore)
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(!isFormFilled)
         }
-        .padding()
     }
 
     func addMealToHealthKit(calories: Double, date: Date, healthStore: HKHealthStore) {
