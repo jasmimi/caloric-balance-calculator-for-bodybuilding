@@ -36,59 +36,52 @@ struct DashboardHome: View {
                         .frame(width: .infinity, height: UIScreen.main.bounds.height/2)
                 }
                 
-                ScrollView {
-                    VStack(spacing: 20) {
-                        Spacer()
+                VStack(spacing: 20) {
+                    Spacer()
+                    
+                    Text("\(modelData.profile.firstName)'s \(genTitle(goal: modelData.profile.goal.rawValue))")
+                        .bold()
+                        .font(.title)
+                        .foregroundStyle(.white)
+                    
 
-                        // Daily Calorie Goal Progress Box
-                        VStack {
-                            Text("Daily Calorie Goal Progress")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                            dailyProgressView
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.indigo, lineWidth: 2)
-                        )
-                        
-                        // Weekly Progress Box
-                        VStack {
-                            Text("Weekly Progress")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                            weeklyLineChart
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.indigo, lineWidth: 2)
-                        )
-                        Spacer()
+                    // Daily Calorie Goal Progress Box
+                    VStack {
+                        Text("Daily Calorie Goal Progress")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        dailyProgressView
                     }
                     .padding()
-                    .frame(maxHeight: .infinity)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .navigationTitle("\(modelData.profile.firstName)'s \(genTitle(goal: modelData.profile.goal.rawValue))")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showingProfile.toggle()
-                    } label: {
-                        Label("User Profile", systemImage: "person.crop.circle")
-                            .foregroundColor(.white)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.indigo, lineWidth: 2)
+                    )
+                    
+                    // Weekly Progress Box
+                    VStack {
+                        Text("Weekly Progress")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        weeklyLineChart
                     }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.indigo, lineWidth: 2)
+                    )
+                    Spacer()
                 }
+                .padding()
+                .frame(maxHeight: .infinity)
             }
+            .toolbar(.hidden)
             .sheet(isPresented: $showingProfile) {
                 ProfileHost()
                     .environmentObject(modelData)
