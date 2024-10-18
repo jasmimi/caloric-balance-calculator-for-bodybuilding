@@ -4,15 +4,22 @@
 //
 //  Created by Jasmine Amohia on 22/08/2024.
 //
+
+// Imports
 import SwiftUI
 
-
+// View structure
 struct ProfileEditor: View {
+    
+    // Initialise variables
     @Binding var profile: Profile
     var signup = false
     
+    // View body
     var body: some View {
         List {
+            
+            // For signing up screen: email edit
             if signup {
                 HStack {
                     Text("Email")
@@ -24,6 +31,7 @@ struct ProfileEditor: View {
                 }
             }
             
+            // For signing up screen: password edit
             if signup {
                 HStack {
                     Text("Password")
@@ -34,6 +42,7 @@ struct ProfileEditor: View {
                 }
             }
             
+            // First name entry field and label
             HStack {
                 Text("First name")
                 Spacer()
@@ -42,6 +51,7 @@ struct ProfileEditor: View {
                     .multilineTextAlignment(.trailing)
             }
             
+            // Last name entry field and label
             HStack {
                 Text("Last name")
                 Spacer()
@@ -50,10 +60,12 @@ struct ProfileEditor: View {
                     .multilineTextAlignment(.trailing)
             }
             
+            // Notifications toggle and label
             Toggle(isOn: $profile.prefersNotifications) {
                 Text("Enable Notifications")
             }
             
+            // Age entry field and label
             HStack {
                 Text("Age")
                 Spacer()
@@ -62,12 +74,14 @@ struct ProfileEditor: View {
                     .multilineTextAlignment(.trailing)
             }
             
+            // Height picker and label
             Picker("Height", selection: $profile.height) {
                 ForEach(Profile.Height.allCases) { height in
                     Text(height.rawValue).tag(height)
                 }
             }
             
+            // Weight entry field and label
             HStack {
                 Text("Weight")
                 Spacer()
@@ -76,12 +90,14 @@ struct ProfileEditor: View {
                     .multilineTextAlignment(.trailing)
             }
             
+            // Sex picker and label
             Picker("Sex", selection: $profile.sex) {
                 ForEach(Profile.Sex.allCases) { sex in
                     Text(sex.rawValue).tag(sex)
                 }
             }
             
+            // Fitness activity picker and label
             Picker("Fitness activity level", selection: $profile.fitnessActivityLevel) {
                 ForEach(Profile.FitnessActivityLevel.allCases) { fan in
                     Text(fan.rawValue).tag(fan)
@@ -89,6 +105,7 @@ struct ProfileEditor: View {
             }
             .frame(height: 60)
             
+            // Goal picker and label
             VStack {
                 Text("Goal")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -100,7 +117,6 @@ struct ProfileEditor: View {
                 .pickerStyle(.wheel)
                 .frame(height: 100)
             }
-    
         }
     }
 }

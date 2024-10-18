@@ -5,10 +5,14 @@
 //  Created by Jasmine Amohia on 14/09/2024.
 //
 
+// Imports
 import SwiftUI
 import HealthKit
 
+// View structure
 struct ShareData: View {
+    
+    // Initalise variables
     @EnvironmentObject var authManager: AuthManager
     @State private var appleHealthToggle = false
     @State private var showAlert = false
@@ -45,6 +49,7 @@ struct ShareData: View {
         }
     }
 
+    // View body
     var body: some View {
         NavigationStack {
             VStack(spacing: 0){
@@ -54,12 +59,14 @@ struct ShareData: View {
                         .ignoresSafeArea()
 
                     VStack {
-                        Spacer() // Pushes the content to the bottom
+                        Spacer()
+                        
+                        // Share data title
                         Text("Share your data")
                             .bold()
                             .font(.title)
                             .foregroundColor(.white)
-                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0)) // Add some padding for spacing from edges
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0)) 
                     }
                 }
                 ZStack (alignment: .top) {
@@ -67,6 +74,7 @@ struct ShareData: View {
                         .frame(width: .infinity, height: UIScreen.main.bounds.height/5*2)
                     VStack {
                         
+                        // Toggle to bring up iOS share data write/read
                         Toggle(isOn: $appleHealthToggle) {
                             Text("Apple Health data")
                         }
@@ -76,6 +84,7 @@ struct ShareData: View {
                             }
                         }
                         
+                        // Continue button if data is shared
                         Button(action: {
                             if appleHealthToggle {
                                 authManager.markShareDataComplete()
@@ -87,7 +96,7 @@ struct ShareData: View {
                         .padding()
                         .disabled(!appleHealthToggle)
 
-                        
+                        // Warning message to user to enable toggle
                         if !(appleHealthToggle) {
                             Text("Please enable toggle to continue")
                                 .foregroundColor(.red)

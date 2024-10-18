@@ -4,20 +4,25 @@
 //
 //  Created by Jasmine Amohia on 14/09/2024.
 //
+
+// Imports
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+// View structure
 struct SignUp: View {
+    
+    // Initialise variables
     @State private var blankProfile = Profile.blank
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-    @State private var isSignedUp: Bool = false // Tracks successful sign-up to navigate
-    @State private var uid: String? = nil // Store the UID
-    @EnvironmentObject var authManager: AuthManager // Add this line
+    @State private var isSignedUp: Bool = false 
+    @State private var uid: String? = nil
+    @EnvironmentObject var authManager: AuthManager
     private var bmr: Double = 0
 
-    
+    // Form validation
     private var isFormFilled: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
@@ -40,9 +45,12 @@ struct SignUp: View {
             passwordTest.evaluate(with: blankProfile.password)
     }
 
+    // View body
     var body: some View {
         NavigationStack {
             VStack {
+                
+                // Load profile input fields (blank) and labels
                 ProfileEditor(profile: $blankProfile, signup: true)
                 
                 if showError {
@@ -51,6 +59,7 @@ struct SignUp: View {
                         .padding(.bottom)
                 }
 
+                // Sign up button enabled with form filled satisfaction
                 Button(action: {
                     signUpUser()
                 }) {
@@ -69,6 +78,7 @@ struct SignUp: View {
         }
     }
 
+    // Convert height from ft to CM for goal calories calculation
     private func convertHeightToCm() -> Double {
         let heightInFeet = blankProfile.height.rawValue // Extract height from enum
         let feet = Double(heightInFeet.split(separator: "'")[0]) ?? 0
@@ -76,6 +86,7 @@ struct SignUp: View {
         return (feet * 30.48) + (inches * 2.54) // Convert to cm
     }
     
+    // Calculate goal calories
     private func calculateGoalCalories() -> Double {
         // Step 1: Calculate BMR
         var bmr: Double
@@ -126,7 +137,7 @@ struct SignUp: View {
         return goalCalories
     }
 
-    
+    // Create authentication account and corresponding Users document with UID and form values
     private func signUpUser() {
         authManager.createAccount(withEmail: blankProfile.email, password: blankProfile.password) { error in
             if let error = error {
@@ -170,7 +181,6 @@ struct SignUp: View {
         }
     }
 }
-
 
 #Preview {
     SignUp()

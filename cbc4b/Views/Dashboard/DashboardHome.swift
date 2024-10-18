@@ -5,27 +5,34 @@
 //  Created by Jasmine Amohia on 22/08/2024.
 //
 
+// Imports
 import SwiftUI
 import Foundation
 import HealthKit
 import Charts
 
+// View structure
 struct DashboardHome: View {
+    
+    // Initialise variables
     @EnvironmentObject var modelData: ModelData
     @EnvironmentObject var authManager: AuthManager
     @State private var showingProfile = false
     
+    // For chart 1
     @State private var dailyCaloricExpenditure: Double? = nil
     @State private var dailyCaloricIntake: Double? = nil
     @State private var dailyCalorieGoal: Double? = nil
     @State private var animatedCaloricIntake: Double = 0.0
 
+    // For chart 2
     @State private var weeklyCaloricExpenditure: [Double?] = [nil]
     @State private var weeklyCaloricIntake: [Double?] = [nil]
     
     var profile: Profile
     var healthKitStore: HealthKitStore
 
+    // View body
     var body: some View {
         NavigationStack {
             ZStack {
@@ -40,6 +47,7 @@ struct DashboardHome: View {
                 VStack(spacing: 20) {
                     Spacer()
                     
+                    // Dashboard title, dynamic with profile data
                     Text("\(modelData.profile.firstName)'s \(genTitle(goal: modelData.profile.goal.rawValue))")
                         .bold()
                         .font(.title)
@@ -96,6 +104,7 @@ struct DashboardHome: View {
         }
     }
 
+    // Fetch from HK
     func fetchCaloricData() {
         healthKitStore.fetchCaloricExpenditureForToday { calories in
             DispatchQueue.main.async {
@@ -127,7 +136,8 @@ struct DashboardHome: View {
         }
         self.dailyCalorieGoal = profile.goalCalories
     }
-        
+    
+    // Title needs to make grammatical sense
     func genTitle(goal: String) -> String {
         var x = modelData.profile.goal.rawValue
         if (x == "Maintain"){
@@ -136,34 +146,41 @@ struct DashboardHome: View {
         return x.lowercased()
     }
     
+    // Chart 1
     var dailyProgressView: some View {
         VStack {
+            
+            // Present user numerical data
             Text("Consumed Today: \(String(format: "%.0f", dailyCaloricIntake ?? 0.0)) kcal")
             Text("Goal: \(String(format: "%.0f", dailyCalorieGoal ?? 0.0)) kcal")
 
+            // Progress bar graph
             ProgressView(value: animatedCaloricIntake, total: dailyCalorieGoal ?? 1.0) // Ensure the total is non-zero
                 .animation(.easeIn(duration: 2), value: animatedCaloricIntake)
                 .task() {
+                    // Animate progress load
                     animatedCaloricIntake = dailyCaloricIntake ?? 0.0
                 }
                 .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                 .frame(height: 20)
                 .padding()
 
+            // User friendly message depending on caloric balance
             let balance = (dailyCalorieGoal ?? 0.0) - (dailyCaloricIntake ?? 0.0);
             if balance > 0 {
                 Text("You're \(Int(balance)) kcal away from your goal!")
                     .foregroundColor(.blue)
             } else if balance < 0 {
-                Text("You're \(Int(balance)) kcal over your goal!")
+                Text("You're \(Int(balance * -1)) kcal over your goal!")
                     .foregroundColor(.orange)
             } else {
-                Text("Goal Achieved!")
+                Text("Goal achieved!")
                     .foregroundColor(.green)
             }
         }
     }
     
+    // Chart 2
     var weeklyLineChart: some View {
         VStack {
             Chart {
