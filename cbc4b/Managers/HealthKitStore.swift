@@ -4,16 +4,21 @@
 //
 //  Created by Jasmine Amohia on 03/10/2024.
 //
+
+// Imports
 import Foundation
 import HealthKit
 
+// Class to handle HealthKit API interactions
 class HealthKitStore {
     
+    // Shared singleton instance and private initialisation
+    static let shared = HealthKitStore()
+    private init() {}
     let healthStore = HKHealthStore()
     
-    
+    // Summation of caloric expenditure for the day
     func fetchCaloricExpenditureForToday(completion: @escaping (Double?) -> Void) {
-        
         guard let caloricExpendType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
             fatalError("*** Active Energy Burned is no longer available ***")
         }
@@ -45,6 +50,7 @@ class HealthKitStore {
         healthStore.execute(expenditureQuery)
     }
     
+    // Summation of caloric intake for the day
     func fetchCaloricIntakeForToday(completion: @escaping (Double?) -> Void) {
         
         guard let CaloricIntakeType = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
@@ -60,7 +66,7 @@ class HealthKitStore {
         
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
 
-        // Create the statistics query for cumulative sum of active energy burned
+        // Create the statistics query for cumulative sum of dietary energy consumed
         let intakeQuery = HKStatisticsQuery(quantityType: CaloricIntakeType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
             
             if let error = error {
@@ -78,6 +84,7 @@ class HealthKitStore {
         healthStore.execute(intakeQuery)
     }
     
+    // List of caloric expenditure for the past week: date, time, caloric output
     func fetchCaloricExpenditureForWeekLog(completion: @escaping ([(date: Date, time: Date, calories: Double)]?) -> Void) {
         
         guard let caloricExpendType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
@@ -122,8 +129,7 @@ class HealthKitStore {
         healthStore.execute(expenditureQuery)
     }
     
-    
-    
+    // List of caloric intake for the past week: date, time, caloric input
     func fetchCaloricIntakeForWeekLog(completion: @escaping ([(date: Date, time: Date, calories: Double)]?) -> Void) {
         
         guard let caloricIntakeType = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
@@ -160,7 +166,6 @@ class HealthKitStore {
                     weeklyCalories.append((date: date, time: time, calories: calories))
                 }
             }
-            
             completion(weeklyCalories)
         }
         
@@ -168,6 +173,7 @@ class HealthKitStore {
         healthStore.execute(intakeQuery)
     }
     
+    // Array of caloric intake daily summations for the past week
     func fetchCaloricIntakeForWeek(completion: @escaping ([Double]?) -> Void) {
         
         guard let caloricIntakeType = HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
@@ -221,7 +227,7 @@ class HealthKitStore {
         healthStore.execute(intakeQuery)
     }
 
-    
+    // Array of caloric expenditure daily summations for the past week
     func fetchCaloricExpenditureForWeek(completion: @escaping ([Double]?) -> Void) {
         
         guard let caloricExpenditureType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {

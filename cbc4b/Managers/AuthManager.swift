@@ -4,20 +4,30 @@
 //
 //  Created by Jasmine Amohia on 27/09/2024.
 //
+
+// Imports
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+// Class to behave as Objective-C object and Observer object/pattern
 class AuthManager: NSObject, ObservableObject {
+    
+    // Shared singleton instance
+    static let shared = AuthManager()
+    
+    // State variables for entry app navigation
     @Published var isUserLoggedIn = false
-    @Published var shouldNavigateToShareData = false // New property to manage navigation
-    @Published var hasCompletedShareData = false // New flag to check if ShareData is done
+    @Published var shouldNavigateToShareData = false
+    @Published var hasCompletedShareData = false 
 
-    override init() {
+    // Private initialisation for singleton
+    private override init() {
         super.init()
         setupAuthStateChangeListener()
     }
 
+    // Function checks whether a user iss logged in and has shared data
     private func setupAuthStateChangeListener() {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             guard let self = self else { return }
@@ -33,6 +43,7 @@ class AuthManager: NSObject, ObservableObject {
         }
     }
     
+    // Checks FB FS Users collection record for users data sharing completion
     private func checkShareDataCompletion(for uid: String) {
         let db = Firestore.firestore()
         let docRef = db.collection("users").document(uid)
@@ -48,6 +59,7 @@ class AuthManager: NSObject, ObservableObject {
         }
     }
     
+    // Once user shares data, writes to relevant Users collection record to remember
     func markShareDataComplete() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -63,6 +75,7 @@ class AuthManager: NSObject, ObservableObject {
         }
     }
 
+    // Handles user sign out
     func signOut(completion: @escaping (Error?) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -74,10 +87,13 @@ class AuthManager: NSObject, ObservableObject {
 }
 
 extension AuthManager {
+    
+    // Get current users UID
     var currentUserUID: String? {
         return Auth.auth().currentUser?.uid
     }
     
+    // Create FB authenticated account with entered email and password strings
     func createAccount(withEmail email: String, password: String, completion: @escaping (Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -88,6 +104,7 @@ extension AuthManager {
         }
     }
 
+    // Sign in authenticated user with entered email and password strings
     func signInWithEmail(withEmail email: String, password: String, completion: @escaping (Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {

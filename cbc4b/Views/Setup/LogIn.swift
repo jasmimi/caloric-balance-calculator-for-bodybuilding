@@ -5,15 +5,20 @@
 //  Created by Jasmine Amohia on 26/09/2024.
 //
 
+// Imports
 import SwiftUI
 
+// View structure
 struct LogIn: View {
+    
+    // Initialise variables
     @EnvironmentObject var authManager: AuthManager
     @State private var email = ""
     @State private var password = ""
     @State private var isSigningIn = false
     @State private var isSignedIn = false
     
+    // View body
     var body: some View {
         NavigationStack {
             VStack (spacing: 0) {
@@ -22,6 +27,8 @@ struct LogIn: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                     VStack {
+                        
+                        // Heading
                         Text("Caloric Balance Calculator for Bodybuilding")
                             .font(.largeTitle)
                             .fontWeight(.black)
@@ -35,6 +42,8 @@ struct LogIn: View {
                             
                             VStack {
                                 VStack {
+                                    
+                                    // Login form
                                     HStack {
                                         Text("Email")
                                         Spacer()
@@ -58,9 +67,12 @@ struct LogIn: View {
                                 }
                                 .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
                                 HStack {
+                                    
+                                    // Back button
                                     NavigationLink("Go back", destination: Start())
                                         .buttonStyle(.borderedProminent)
 
+                                    // Sign in button
                                     Button(action: {
                                         isSigningIn = true
                                         authManager.signInWithEmail(withEmail: email, password: password, completion: { error in

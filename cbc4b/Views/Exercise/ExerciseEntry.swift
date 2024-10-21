@@ -4,10 +4,15 @@
 //
 //  Created by Jasmine Amohia on 11/10/2024.
 //
+
+// Imports
 import SwiftUI
 import HealthKit
 
+// View structure
 struct ExerciseEntry: View {
+    
+    // Initialise variables
     @Binding var exercise: Exercise
     @State private var date = Date()
     var healthKitStore: HKHealthStore
@@ -15,6 +20,7 @@ struct ExerciseEntry: View {
     // Add environment dismiss action
     @Environment(\.dismiss) var dismiss
 
+    // User can input exercise data from 2021 start - 2024 end
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
         let startComponents = DateComponents(year: 2021, month: 1, day: 1)
@@ -24,41 +30,63 @@ struct ExerciseEntry: View {
             calendar.date(from:endComponents)!
     }()
     
+    // Form validation
     private var isFormFilled: Bool {
         return exercise.expenditure > 0
     }
     
+    // View body
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Log exercise")
-                .bold()
-                .font(.title)
+        ZStack {
+            Color.indigo.ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            HStack{
-                DatePicker(
-                    "Date time",
-                     selection: $date,
-                     in: dateRange,
-                    displayedComponents: [.date, .hourAndMinute]
-                )
+            ZStack {
+                Color.white
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .frame(width: 350, height: UIScreen.main.bounds.height/3.5)
+                
+                // Form headings and input fields
+                VStack {
+                    Text("Log exercise")
+                        .bold()
+                        .font(.title)
+                    
+                    HStack{
+                        DatePicker(
+                            "Date time",
+                             selection: $date,
+                             in: dateRange,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top)
+                    
+                    HStack{
+                        Text("Calories Burned")
+                        Spacer()
+                        Spacer()
+                        TextField("Expenditure", value: $exercise.expenditure, formatter: NumberFormatter())
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    
+                    // Submit button enabled if form validation is satisfied
+                    Button("Add to exercise log") {
+                        addExerciseToHealthKit(calories: exercise.expenditure, date: date, healthStore: healthKitStore)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!isFormFilled)
+                }
+                .padding()
             }
-            
-            HStack{
-                Text("Calories Burned")
-                Spacer()
-                Spacer()
-                TextField("Expenditure", value: $exercise.expenditure, formatter: NumberFormatter())
-            }
-            
-            Button("Add to exercise log") {
-                addExerciseToHealthKit(calories: exercise.expenditure, date: date, healthStore: healthKitStore)
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(!isFormFilled)
         }
-        .padding()
     }
     
+    // Send exercise entry data to HealthKit
     func addExerciseToHealthKit(calories: Double, date: Date, healthStore: HKHealthStore) {
         // 1. Define the active energy burned quantity type
         guard let activeEnergyBurnedType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
