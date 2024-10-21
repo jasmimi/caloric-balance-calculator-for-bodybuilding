@@ -38,7 +38,7 @@ struct ExerciseList: View {
                     
                     // Sort by recent, displays date, time, and calories
                     if let expenditure = caloricExpenditure {
-                        ForEach(expenditure.reversed(), id: \.date) { entry in
+                        ForEach(expenditure.prefix(30).reversed(), id: \.date) { entry in
                             VStack(alignment: .leading) {
                                 Text("Date: \(dateFormatter.string(from: entry.date))")
                                 Text("Time: \(dateFormatter.string(from: entry.time))")
